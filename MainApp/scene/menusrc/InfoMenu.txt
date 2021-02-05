@@ -1,0 +1,2 @@
+In questa cartella sono contenute tutti gli elementi grafici per
+la creazione del menù.

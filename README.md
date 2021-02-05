@@ -1,3 +1,3 @@
 # GameProgramming
 
-#In questo deposito si trovano: tutta la app completa (Lua) + I tilesets per la factory + altro
+#In questo deposito si trovana: tutta la app completa

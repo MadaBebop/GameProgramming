@@ -25,7 +25,7 @@ local playBtn -- Creazione del bottone che darà inizio al livello 1
 local function onPlayBtnRelease()
 	-- Avvia il livello 1
 	--composer.gotoScene( "scene.livello1", { params={ map="maps/tiles/livello1.json" } } )
-			composer.gotoScene( "scene.livello1", "fade", 500 )
+			composer.gotoScene( "scene.livello1")
 end -- Fine funzione bottone
 
 ---------

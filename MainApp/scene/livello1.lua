@@ -1,13 +1,9 @@
 ------------------
 --- LIBRERIE
 ------------------
--- Libreria Composer
 local composer = require "composer"
--- importo la libreria ponytiled
 local tiled = require "com.ponywolf.ponytiled"
--- Libreria Fisica
 local physics = require "physics"
--- importo la libreria json
 local json = require "json"
 ----------------
 --- Variabili
@@ -31,10 +27,10 @@ function scene:create( event )
 	-- Se si contengono degli oggettifisici nella mappa bisogna caricare prima la fisica!
 	physics.setDrawMode("debug")
 	physics.start()
-	-- gravità? physics.setGravity( 0, 32 )
-
-local mapData = json.decodeFile("system.pathForFile(“maps/tiles/livello1.json", system.ResourceDirectory)
-map = tiled.new(mapData, "maps/tiles") -- l'errore è qui
+		
+	local filename = 'scene/maps/tiles/livello1.json'
+	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
+	map = tiled.new(mapData, "scene/maps/tiles") -- l'errore è qui
 
 	--Centramento della mappa
 	map.x,map.y = display.contentCenterX - map.designedWidth/2, display.contentCenterY - map.designedHeight/2
@@ -52,8 +48,7 @@ function scene:show( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		tiled.fadeIn() -- Dissolvenza fx. ?
-		Runtime:addEventListener( "enterFrame", enterFrame )
+		
 	elseif ( phase == "did" ) then
 		-- Avviare un rumore di cambio scena
 
@@ -70,7 +65,7 @@ function scene:hide( event )
 	if ( phase == "will" ) then
 
 	elseif ( phase == "did" ) then
-		Runtime:removeEventListener( "enterFrame", enterFrame )
+		
 	end
 
 end -- end hide

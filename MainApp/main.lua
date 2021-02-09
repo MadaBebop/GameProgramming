@@ -4,7 +4,7 @@
 -- Corso di game programming, Stm uniud.
 --
 -----------------------------------------------------------------------------------------
-
+local composer = require 'composer'
 -- Nasconde la barra di stato del telefono
 display.setStatusBar( display.HiddenStatusBar )
 
@@ -12,4 +12,4 @@ display.setStatusBar( display.HiddenStatusBar )
 local composer = require "composer"
 
 -- Inizio con caricamento del menù
-composer.gotoScene( "scene.livello1" )   --
+composer.gotoScene( "scene.menu" )   --

@@ -13,3 +13,6 @@ local composer = require "composer"
 
 -- Inizio con caricamento del menù
 composer.gotoScene( "scene.menu" )   --
+
+
+-- dio cane

@@ -28,9 +28,9 @@ function scene:create( event )
 	physics.setDrawMode("normal")
 	physics.start()
 
-	local filename = 'scene/maps/tiles/livello1.json'
+	local filename = 'scene/maps/lvl1/livello1.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
-	map = tiled.new(mapData, "scene/maps/tiles") -- l'errore è qui
+	map = tiled.new(mapData, "scene/maps/lvl1")
 
 	--Centramento della mappa
 	map.x,map.y = display.contentCenterX - map.designedWidth/2, display.contentCenterY - map.designedHeight/2

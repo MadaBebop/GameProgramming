@@ -5,11 +5,12 @@ local composer = require "composer"
 local tiled = require "com.ponywolf.ponytiled"
 local physics = require "physics"
 local json = require "json"
+local robot = require 'game.hero.robot'
 ----------------
 --- Variabili
 ----------------
 --Creazione della variabile contenente i dati della mappa e la mappa stessa
-local map
+local map, hero
 
 -- Create a new Composer scene
 local scene = composer.newScene()
@@ -25,7 +26,7 @@ function scene:create( event )
 	--end sounds
 
 	-- Se si contengono degli oggettifisici nella mappa bisogna caricare prima la fisica!
-	physics.setDrawMode("normal")
+	physics.setDrawMode("hybrid")
 	physics.start()
 
 	local filename = 'scene/maps/lvl1/livello1.json'
@@ -33,7 +34,13 @@ function scene:create( event )
 	map = tiled.new(mapData, "scene/maps/lvl1")
 
 	--Centramento della mappa
-	map.x,map.y = display.contentCenterX - map.designedWidth/2, display.contentCenterY - map.designedHeight/2
+	map.x = -30
+	map.y = 0
+
+	--Carico il personaggio
+	hero = robot.createRobot()
+	hero.x = 200
+	hero.y = 200
 
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )

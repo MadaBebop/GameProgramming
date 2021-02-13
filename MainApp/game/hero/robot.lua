@@ -83,21 +83,29 @@ function M.createRobot()
     robot:setSequence("Idle")
     robot:play()
     physics.addBody(robot, "dynamic", {bounce = 0,0})
+    local isFacing = 'right'
     robot.isFixedRotation = true
     robot.jumping = false
 
-
+    local lastKey = {}
     local function key (event)
         local keyName = event.keyName
         local phase = event.phase
+        if ( phase == lastKey.phase ) and ( name == lastKey.keyName ) then return false end
         if (phase == 'down') then
             if ('d' == keyName) then
-                robot:scale(-1, 1)
+                if (isFacing == 'left') then 
+                    robot:scale(-1, 1) 
+                    isFacing = 'right'
+                end
                 robot:setSequence("Run")
                 robot:play()
                 robot:setLinearVelocity(120, 0)
             elseif ('a' == keyName) then
-                robot:scale(-1, 1)
+                if (isFacing == 'right') then 
+                    robot:scale(-1, 1) 
+                    isFacing = 'left' 
+                end
                 robot:setSequence("Run")
                 robot:play()
                 robot:setLinearVelocity(-120, 0)
@@ -110,6 +118,8 @@ function M.createRobot()
             robot:setLinearVelocity(0, 0)
             robot.jumping = false
         end
+        lastKey = event
+        print(lastKey.keyName)
     end
 
 

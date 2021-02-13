@@ -25,17 +25,22 @@ function scene:create( event )
 	--sounds here*
 	--end sounds
 
-	-- Se si contengono degli oggettifisici nella mappa bisogna caricare prima la fisica!
+	
 	physics.setDrawMode("hybrid")
 	physics.start()
+	local startLine = display.newLine(0,0, 0, display.contentHeight)
 
 	local filename = 'scene/maps/lvl1/livello1.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl1")
 
-	--Centramento della mappa
-	map.x = -30
-	map.y = 0
+	--Posizionamento della mappa
+	map.anchorX = 0
+	map.anchorY = 0
+	
+	local sc = display.screenOriginX
+	map.x = sc
+	print(sc)
 
 	--Carico il personaggio
 	hero = robot.createRobot()
@@ -47,6 +52,14 @@ sceneGroup:insert( map )
 
 end -- fine del creazione
 
+-- local function enterFrame (event) 
+-- 	if hero and hero.x and not hero.isDead then
+-- 		local x, y = hero:localToContent(0,0)
+-- 		x = display.contentCenterX - x 
+-- 		map.x = map.x + x
+-- 	end
+-- end
+
 
 ---------
 -- SHOW
@@ -55,7 +68,7 @@ function scene:show( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-
+		-- Runtime:addEventListener('enterFrame', enterFrame)
 	elseif ( phase == "did" ) then
 		-- Avviare un rumore di cambio scena
 
@@ -72,6 +85,7 @@ function scene:hide( event )
 	if ( phase == "will" ) then
 
 	elseif ( phase == "did" ) then
+		-- Runtime:removeEventListener('enterFrame', enterFrame)
 
 	end
 

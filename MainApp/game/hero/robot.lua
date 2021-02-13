@@ -84,6 +84,7 @@ function M.createRobot()
     robot:play()
     physics.addBody(robot, "dynamic", {bounce = 0,0})
     local isFacing = 'right'
+    local isDead = false
     robot.isFixedRotation = true
     robot.jumping = false
 

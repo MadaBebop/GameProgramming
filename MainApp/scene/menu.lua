@@ -5,8 +5,6 @@
 --------------------------------------------
 -- Librerie
 --------------------------------------------
-
-
 --Utilizzo della libreria composer con annessa creazione della scena
 local composer = require "composer"
 
@@ -40,20 +38,14 @@ function scene:create( event )
 
 
 	-- background ATTENZIONE NECESSITA SFONDO
-	local background = display.newImageRect( "scene/menusrc/background.jpg", display.actualContentWidth, display.actualContentHeight )
+	local background = display.newImageRect( "scene/menusrc/background.png", display.actualContentWidth, display.actualContentHeight )
 	background.anchorX = 0
 	background.anchorY = 0
 	background.x = 0 + display.screenOriginX
 	background.y = 0 + display.screenOriginY
 
-	-- Creazione del logo NECESSITA LOGO (titolo menu)
-	local titleLogo = display.newImageRect( "scene/menusrc/logo.png", 264, 42 )
-	titleLogo.x = display.contentCenterX
-	titleLogo.y = 100
-
 	-- Creazione del widget bottone (Il quale carichera il gioco)
 	playBtn = widget.newButton{ --creazione delle caratteristiche del bottone
-		label = "Play Now",      -- Etichetta del bottone
 		labelColor = { default={ 1.0 }, over={ 0.5 } }, -- colore dell'etichetta
 		defaultFile = "scene/menusrc/button.png",   --
 		overFile = "scene/menusrc/button-over.png", --
@@ -66,7 +58,6 @@ function scene:create( event )
 
 	-- Inserimento GRUPPI delle scene
 	sceneGroup:insert( background ) --Sfondo
-	sceneGroup:insert( titleLogo ) -- Logo
 	sceneGroup:insert( playBtn )  --Bottone
 
 

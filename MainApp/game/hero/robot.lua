@@ -87,13 +87,14 @@ function M.createRobot()
     robot.isFixedRotation = true
     robot.jumping = false
 
-    local lastKey = {}
+
     local function key (event)
-        local keyName = event.keyName
+        local keyName = event.keyName 
         local phase = event.phase
-        if ( phase == lastKey.phase ) and ( name == lastKey.keyName ) then return false end
-        if (phase == 'down') then
+        if (phase == 'down') then -- Quando un tasto viene premuto
             if ('d' == keyName) then
+                -- d = movimento verso destra
+                -- controllo se il personaggio è girato verso sx, se è così allora lo scalo e setto isFacing a destra
                 if (isFacing == 'left') then 
                     robot:scale(-1, 1) 
                     isFacing = 'right'
@@ -102,6 +103,8 @@ function M.createRobot()
                 robot:play()
                 robot:setLinearVelocity(120, 0)
             elseif ('a' == keyName) then
+                -- a = movimento verso sinistra
+                -- controllo se il personaggio è girato verso dx, se è così allora lo scalo e setto isFacing a sinistra
                 if (isFacing == 'right') then 
                     robot:scale(-1, 1) 
                     isFacing = 'left' 
@@ -112,14 +115,12 @@ function M.createRobot()
             elseif ('space' == keyName) then
                 robot:jumpRobot()
             end
-        elseif (phase == 'up') then
+        elseif (phase == 'up') then -- Quando il tasto viene rilasciato
             robot:setSequence("Idle")
             robot:play()
             robot:setLinearVelocity(0, 0)
             robot.jumping = false
         end
-        lastKey = event
-        print(lastKey.keyName)
     end
 
 

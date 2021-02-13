@@ -35,8 +35,6 @@ function scene:create( event )
 	-- INSERT code here to initialize the scene
 	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
 
-
-
 	-- background ATTENZIONE NECESSITA SFONDO
 	local background = display.newImageRect( "scene/menusrc/background.png", display.actualContentWidth, display.actualContentHeight )
 	background.anchorX = 0

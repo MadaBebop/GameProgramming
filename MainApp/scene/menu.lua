@@ -21,9 +21,7 @@ local playBtn -- Creazione del bottone che darà inizio al livello 1
 
 -- Ascoltatore del bottone (sulla pressione)
 local function onPlayBtnRelease()
-	-- Avvia il livello 1
-	--composer.gotoScene( "scene.livello1", { params={ map="maps/tiles/livello1.json" } } )
-			composer.gotoScene( "scene.livello1")
+			composer.gotoScene( "scene.livello2")
 end -- Fine funzione bottone
 
 ---------

@@ -38,7 +38,7 @@ function scene:create( event )
 	hero = robot.createRobot()
 	hero.x = 200
 	hero.y = 200
-
+	
 	--Centramento della mappa
 	map.x = -30
 	map.y = 0

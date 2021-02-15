@@ -77,12 +77,14 @@ function M.createRobot()
         loopCount = 1,
         loopDirection = "forward"
     }
-    --==================== FINE ANIMAZIONI =======================
+    --==================== FINE ANIMAZIONI =======================--
 
     local robot = display.newSprite(idleSheet, robotSequences)
     robot:setSequence("Idle")
     robot:play()
-    physics.addBody(robot, "dynamic", {bounce = 0,0})
+    robot:scale(0.5,0.5) -- scalato l'eroe a metà
+    local rectangle = { -7,12 , 7,12 , 7,-12 ,-7,-12 } --HitBox
+    physics.addBody(robot, "dynamic", {bounce = 0,0 , shape = rectangle })
     local isFacing = 'right'
     robot.isFixedRotation = true
     robot.jumping = false

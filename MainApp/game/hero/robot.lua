@@ -89,14 +89,14 @@ function M.createRobot()
 
 
     local function key (event)
-        local keyName = event.keyName 
+        local keyName = event.keyName
         local phase = event.phase
         if (phase == 'down') then -- Quando un tasto viene premuto
             if ('d' == keyName) then
                 -- d = movimento verso destra
                 -- controllo se il personaggio è girato verso sx, se è così allora lo scalo e setto isFacing a destra
-                if (isFacing == 'left') then 
-                    robot:scale(-1, 1) 
+                if (isFacing == 'left') then
+                    robot:scale(-1, 1)
                     isFacing = 'right'
                 end
                 robot:setSequence("Run")
@@ -105,9 +105,9 @@ function M.createRobot()
             elseif ('a' == keyName) then
                 -- a = movimento verso sinistra
                 -- controllo se il personaggio è girato verso dx, se è così allora lo scalo e setto isFacing a sinistra
-                if (isFacing == 'right') then 
-                    robot:scale(-1, 1) 
-                    isFacing = 'left' 
+                if (isFacing == 'right') then
+                    robot:scale(-1, 1)
+                    isFacing = 'left'
                 end
                 robot:setSequence("Run")
                 robot:play()
@@ -131,8 +131,8 @@ function M.createRobot()
             robot:applyLinearImpulse(0, -0.2 )
             robot.jumping = true
         end
-    
-        
+
+
         -- Funzione locale per "ascoltare" quando l'animazione del salto termina e settare la sequenza idle
         local function spriteListener(event)
             if (event.phase == "ended") then
@@ -140,7 +140,7 @@ function M.createRobot()
                 robot:play()
             end
         end
-    
+
         robot:addEventListener("sprite", spriteListener)
     end
 
@@ -173,7 +173,7 @@ end
 --         robot.jumping = true
 --     end
 
-    
+
 --     -- Funzione locale per "ascoltare" quando l'animazione del salto termina e settare la sequenza idle
 --     local function spriteListener(event)
 --         if (event.phase == "ended") then

@@ -12,6 +12,7 @@ local robot = require 'game.hero.robot'
 --Creazione della variabile contenente i dati della mappa e la mappa stessa
 local map, hero
 
+
 -- Create a new Composer scene
 local scene = composer.newScene()
 
@@ -33,14 +34,14 @@ function scene:create( event )
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl2")
 
-	--Centramento della mappa
-	map.x = -30
-	map.y = 0
-
-	--Carico il personaggio
+	-- Eroe
 	hero = robot.createRobot()
 	hero.x = 200
 	hero.y = 200
+
+	--Centramento della mappa
+	map.x = -30
+	map.y = 0
 
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )

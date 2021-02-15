@@ -201,7 +201,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="acid" visible="0">
+ <objectgroup id="3" name="acid">
   <properties>
    <property name="bodyType" value="dynamic"/>
    <property name="bounce" type="int" value="0"/>
@@ -209,56 +209,56 @@
   </properties>
   <object id="2" x="159.333" y="117.333" width="49" height="27.3333">
    <properties>
-    <property name="bodyType" value="dynamic"/>
+    <property name="bodyType" value="static"/>
     <property name="bounce" type="float" value="0"/>
     <property name="density" type="float" value="1"/>
    </properties>
   </object>
   <object id="3" x="192" y="276" width="48.6667" height="26.6667">
    <properties>
-    <property name="bodyType" value="dynamic"/>
+    <property name="bodyType" value="static"/>
     <property name="bounce" type="float" value="0"/>
     <property name="density" type="float" value="1"/>
    </properties>
   </object>
   <object id="4" x="432" y="276.667" width="32.6667" height="27.3333">
    <properties>
-    <property name="bodyType" value="dynamic"/>
+    <property name="bodyType" value="static"/>
     <property name="bounce" type="float" value="0"/>
     <property name="density" type="float" value="1"/>
    </properties>
   </object>
   <object id="5" x="527.334" y="278" width="144" height="25">
    <properties>
-    <property name="bodyType" value="dynamic"/>
+    <property name="bodyType" value="static"/>
     <property name="bounce" type="float" value="0"/>
     <property name="density" type="float" value="1"/>
    </properties>
   </object>
   <object id="6" x="656.333" y="100.667" width="31.6667" height="11.6667">
    <properties>
-    <property name="bodyType" value="dynamic"/>
+    <property name="bodyType" value="static"/>
     <property name="bounce" type="float" value="0"/>
     <property name="density" type="float" value="1"/>
    </properties>
   </object>
   <object id="7" x="863.667" y="112.667" width="15" height="79.3333">
    <properties>
-    <property name="bodyType" value="dynamic"/>
+    <property name="bodyType" value="static"/>
     <property name="bounce" type="float" value="0"/>
     <property name="density" type="float" value="1"/>
    </properties>
   </object>
   <object id="8" x="928" y="112.667" width="15.3333" height="79.3334">
    <properties>
-    <property name="bodyType" value="dynamic"/>
+    <property name="bodyType" value="static"/>
     <property name="bounce" type="float" value="0"/>
     <property name="density" type="float" value="1"/>
    </properties>
   </object>
   <object id="10" x="800.333" y="277.667" width="143.667" height="26.3333">
    <properties>
-    <property name="bodyType" value="dynamic"/>
+    <property name="bodyType" value="static"/>
     <property name="bounce" type="float" value="0"/>
     <property name="density" type="float" value="1"/>
    </properties>
@@ -309,7 +309,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="platform">
+ <objectgroup id="5" name="platform" visible="0">
   <properties>
    <property name="bodyType" value="static"/>
   </properties>

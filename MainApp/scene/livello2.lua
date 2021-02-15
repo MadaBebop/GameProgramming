@@ -29,7 +29,7 @@ function scene:create( event )
 	-- Se si contengono degli oggettifisici nella mappa bisogna caricare prima la fisica!
 	physics.setDrawMode("hybrid")
 	physics.start()
-
+	physics.setGravity( 0, 32 )
 	local filename = 'scene/maps/lvl2/livello2.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl2")
@@ -38,7 +38,7 @@ function scene:create( event )
 	hero = robot.createRobot()
 	hero.x = 200
 	hero.y = 200
-	
+
 	--Centramento della mappa
 	map.x = -30
 	map.y = 0

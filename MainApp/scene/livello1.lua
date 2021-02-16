@@ -81,6 +81,7 @@ function scene:show( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
+		camera:insert(map)
 		Runtime:addEventListener('enterFrame', moveCamera)
 	elseif ( phase == "did" ) then
 		-- Avviare un rumore di cambio scena

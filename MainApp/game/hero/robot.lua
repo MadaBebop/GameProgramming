@@ -131,7 +131,7 @@ function M.createRobot()
         if not robot.jumping then
             robot:setSequence("Jump")
             robot:play()
-            robot:applyLinearImpulse(0, -0.2 )
+            robot:applyLinearImpulse(0, -0.12 )
             robot.jumping = true
         end
 

@@ -69,14 +69,6 @@ function M.createRobot()
         }
     }
 
-    local proiettileSequences = {
-        name = "sparo",
-        start = 1,
-        count = 5,
-        time = 500,
-        loopCount = 1,
-        loopDirection = "forward"
-    }
     --==================== FINE ANIMAZIONI =======================--
 
     local robot = display.newSprite(idleSheet, robotSequences)
@@ -115,6 +107,8 @@ function M.createRobot()
                 robot:setSequence("Run")
                 robot:play()
                 robot:setLinearVelocity(-120, 0)
+            elseif ('k' == keyName) then
+                robot:shoot()
             elseif ('space' == keyName) then
                 robot:jumpRobot()
             end
@@ -147,46 +141,31 @@ function M.createRobot()
         robot:addEventListener("sprite", spriteListener)
     end
 
+
+    -- Funzione per lo sparo
+    function robot:shoot(event)
+        robot:setSequence('Shoot') 
+        robot:play()
+        local proiettile = display.newImage('game/hero/robotfree/pngTagliate/Bullet_000.png')
+        proiettile.name = 'proiettile'
+        physics.addBody(proiettile, 'kinematic')
+        if (isFacing == 'right') then
+            proiettile.x = robot.x + 25
+            proiettile.y = robot.y
+            proiettile:setLinearVelocity(120, 0)
+        else
+            proiettile:scale(-1, 1)
+            proiettile.x = robot.x - 25
+            proiettile.y = robot.y
+            proiettile:setLinearVelocity(-120, 0)
+        end
+    end
+
     Runtime:addEventListener("key", key)
 
     return robot
 
 end
-
--- FUNZIONE PER IL MOVIMENTO DEL ROBOT
--- function M.moveRobot(robot, event)
---     if (event.phase == "began") then
---         robot:setSequence("Run")
---         robot:play()
---         robot:setLinearVelocity(120, 0)
---     elseif (event.phase == "ended") then
---         robot:setSequence("Idle")
---         robot:play()
---         robot:setLinearVelocity(0, 0)
---     end
--- end
-
-
--- FUNZIONE PER IL SALTO DEL ROBOT
--- function M.jumpRobot(robot, event)
---     if not robot.jumping then
---         robot:setSequence("Jump")
---         robot:play()
---         robot:applyLinearImpulse(0, -0.12)
---         robot.jumping = true
---     end
-
-
---     -- Funzione locale per "ascoltare" quando l'animazione del salto termina e settare la sequenza idle
---     local function spriteListener(event)
---         if (event.phase == "ended") then
---             robot:setSequence("Idle")
---             robot:play()
---         end
---     end
-
---     robot:addEventListener("sprite", spriteListener)
--- end
 
 
 function M.shootRobot(robot, event)

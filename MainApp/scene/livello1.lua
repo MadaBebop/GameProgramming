@@ -11,6 +11,9 @@ local robot = require 'game.hero.robot'
 ----------------
 --Creazione della variabile contenente i dati della mappa e la mappa stessa
 local map, hero
+local camera = display.newGroup()
+local mapLimitLeft = 0
+local mapLimitRight = 960
 
 -- Create a new Composer scene
 local scene = composer.newScene()
@@ -33,7 +36,7 @@ function scene:create( event )
 	local filename = 'scene/maps/lvl1/livello1.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl1")
-
+	
 	--Posizionamento della mappa
 	map.anchorX = 0
 	map.anchorY = 0
@@ -43,19 +46,28 @@ function scene:create( event )
 	hero = robot.createRobot()
 	hero.x = 200
 	hero.y = 200
-
+	camera:insert(map)
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )
 
 end -- fine del creazione
 
--- local function enterFrame (event) 
--- 	if hero and hero.x and not hero.isDead then
--- 		local x, y = hero:localToContent(0,0)
--- 		x = display.contentCenterX - x 
--- 		map.x = map.x + x
--- 	end
--- end
+local function moveCamera (event) 
+	local offsetX = 100
+	local heroWidth = hero.width
+	local displayLeft = -camera.x
+
+
+	local nonScrollingWidth = display.contentWidth - offsetX
+	print(nonScrollingWidth)
+	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
+		if (hero.x > displayLeft + nonScrollingWidth) then
+			camera.x = -hero.x + nonScrollingWidth
+		elseif (hero.x < displayLeft + offsetX) then
+			camera.x = -hero.x + offsetX
+		end
+	end
+end
 
 
 ---------
@@ -65,7 +77,7 @@ function scene:show( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		-- Runtime:addEventListener('enterFrame', enterFrame)
+		Runtime:addEventListener('enterFrame', moveCamera)
 	elseif ( phase == "did" ) then
 		-- Avviare un rumore di cambio scena
 
@@ -82,7 +94,7 @@ function scene:hide( event )
 	if ( phase == "will" ) then
 
 	elseif ( phase == "did" ) then
-		-- Runtime:removeEventListener('enterFrame', enterFrame)
+		Runtime:removeEventListener('enterFrame', moveCamera)
 
 	end
 

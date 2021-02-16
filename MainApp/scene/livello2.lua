@@ -27,8 +27,8 @@ function scene:create( event )
 	--end sounds
 
 	-- Se si contengono degli oggettifisici nella mappa bisogna caricare prima la fisica!
-	physics.setDrawMode("hybrid")
 	physics.start()
+	physics.setDrawMode("normal")
 	physics.setGravity( 0, 32 )
 	local filename = 'scene/maps/lvl2/livello2.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))

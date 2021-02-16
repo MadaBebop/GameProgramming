@@ -38,9 +38,6 @@ function scene:create( event )
 	map.anchorX = 0
 	map.anchorY = 0
 	
-	local sc = display.screenOriginX
-	map.x = sc
-	print(sc)
 
 	--Carico il personaggio
 	hero = robot.createRobot()

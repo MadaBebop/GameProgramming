@@ -52,6 +52,10 @@ sceneGroup:insert( map )
 
 end -- fine del creazione
 
+-- Funzione per il camera scroll
+-- Non funziona ma dovrebbe essere tutto corretto
+-- Penso che sia perche' bisogna sviluppare il gioco tramite 'Group Programming'
+-- Infatti sopra ho definito un newGroup chiamato camera, dentro al quale ho inserito la mappa
 local function moveCamera (event) 
 	local offsetX = 100
 	local heroWidth = hero.width

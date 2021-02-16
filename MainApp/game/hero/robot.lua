@@ -108,6 +108,7 @@ function M.createRobot()
                 robot:play()
                 robot:setLinearVelocity(-120, 0)
             elseif ('k' == keyName) then
+                -- k = sparo
                 robot:shoot()
             elseif ('space' == keyName) then
                 robot:jumpRobot()
@@ -147,7 +148,7 @@ function M.createRobot()
         robot:setSequence('Shoot') 
         robot:play()
         local proiettile = display.newImage('game/hero/robotfree/pngTagliate/Bullet_000.png')
-        proiettile.name = 'proiettile'
+        -- proiettile.name = 'proiettile'
         physics.addBody(proiettile, 'kinematic')
         if (isFacing == 'right') then
             proiettile.x = robot.x + 25

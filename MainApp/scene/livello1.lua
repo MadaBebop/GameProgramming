@@ -31,7 +31,8 @@ function scene:create( event )
 	
 	physics.setDrawMode("hybrid")
 	physics.start()
-	local startLine = display.newLine(0,0, 0, display.contentHeight)
+	physics.setGravity( 0, 32 )
+
 
 	local filename = 'scene/maps/lvl1/livello1.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
@@ -46,7 +47,6 @@ function scene:create( event )
 	hero = robot.createRobot()
 	hero.x = 200
 	hero.y = 200
-	camera:insert(map)
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )
 
@@ -61,9 +61,7 @@ local function moveCamera (event)
 	local heroWidth = hero.width
 	local displayLeft = -camera.x
 
-
 	local nonScrollingWidth = display.contentWidth - offsetX
-	print(nonScrollingWidth)
 	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
 		if (hero.x > displayLeft + nonScrollingWidth) then
 			camera.x = -hero.x + nonScrollingWidth

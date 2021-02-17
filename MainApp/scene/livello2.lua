@@ -11,6 +11,9 @@ local robot = require 'game.hero.robot'
 ----------------
 --Creazione della variabile contenente i dati della mappa e la mappa stessa
 local map, hero
+local camera = display.newGroup()
+local mapLimitLeft = 0
+local mapLimitRight = 960
 
 
 -- Create a new Composer scene
@@ -26,10 +29,10 @@ function scene:create( event )
 	--sounds here*
 	--end sounds
 
-	-- Se si contengono degli oggettifisici nella mappa bisogna caricare prima la fisica!
 	physics.start()
 	physics.setDrawMode("normal")
 	physics.setGravity( 0, 32 )
+
 	local filename = 'scene/maps/lvl2/livello2.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl2")
@@ -39,14 +42,30 @@ function scene:create( event )
 	hero.x = 200
 	hero.y = 200
 
-	--Centramento della mappa
-	map.x = -30
-	map.y = 0
 
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )
 
 end -- fine del creazione
+
+-- Funzione per il camera scroll
+-- Non funziona ma dovrebbe essere tutto corretto
+-- Penso che sia perche' bisogna sviluppare il gioco tramite 'Group Programming'
+-- Infatti sopra ho definito un newGroup chiamato camera, dentro al quale ho inserito la mappa
+local function moveCamera (event) 
+	local offsetX = 100
+	local heroWidth = hero.width
+	local displayLeft = -camera.x
+
+	local nonScrollingWidth = display.contentWidth - offsetX
+	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
+		if (hero.x > displayLeft + nonScrollingWidth) then
+			camera.x = -hero.x + nonScrollingWidth
+		elseif (hero.x < displayLeft + offsetX) then
+			camera.x = -hero.x + offsetX
+		end
+	end
+end
 
 
 ---------
@@ -56,7 +75,8 @@ function scene:show( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-
+		camera:insert(map)
+		Runtime:addEventListener('enterFrame', moveCamera)
 	elseif ( phase == "did" ) then
 		-- Avviare un rumore di cambio scena
 
@@ -73,7 +93,7 @@ function scene:hide( event )
 	if ( phase == "will" ) then
 
 	elseif ( phase == "did" ) then
-
+		Runtime:removeEventListener('enterFrame', moveCamera)
 	end
 
 end -- end hide

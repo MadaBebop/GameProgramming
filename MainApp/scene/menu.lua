@@ -29,9 +29,7 @@ end -- Fine funzione bottone
 --------
 function scene:create( event )
 	local sceneGroup = self.view -- Chiamata quando la scena non esiste
-	--
-	-- INSERT code here to initialize the scene
-	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
+	
 
 	-- background ATTENZIONE NECESSITA SFONDO
 	local background = display.newImageRect( "scene/menusrc/background.png", display.actualContentWidth, display.actualContentHeight )
@@ -105,7 +103,9 @@ function scene:destroy( event )
 	local sceneGroup = self.view
 
 	-- Called prior to the removal of scene's "view" (sceneGroup)
-	--
+	background:removeSelf()
+	background = nil
+	composer.removeScene('menu')
 	-- INSERT code here to cleanup the scene
 	-- e.g. remove display objects, remove touch listeners, save state, etc.
 

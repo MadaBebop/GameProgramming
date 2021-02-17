@@ -30,7 +30,7 @@ function scene:create( event )
 	--end sounds
 
 	physics.start()
-	physics.setDrawMode("normal")
+	physics.setDrawMode("debug")
 	physics.setGravity( 0, 32 )
 
 	local filename = 'scene/maps/lvl2/livello2.json'
@@ -52,7 +52,7 @@ end -- fine del creazione
 -- Non funziona ma dovrebbe essere tutto corretto
 -- Penso che sia perche' bisogna sviluppare il gioco tramite 'Group Programming'
 -- Infatti sopra ho definito un newGroup chiamato camera, dentro al quale ho inserito la mappa
-local function moveCamera (event) 
+local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
 	local displayLeft = -camera.x

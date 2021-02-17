@@ -42,7 +42,7 @@
                 {
                  "height":319.064,
                  "id":1,
-                 "name":"",
+                 "name":"barrierdx",
                  "properties":[
                         {
                          "name":"bodyType",
@@ -50,7 +50,7 @@
                          "value":"static"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"barrierdx",
                  "visible":true,
                  "width":15.2162,
                  "x":464.094,
@@ -59,7 +59,7 @@
                 {
                  "height":320.5,
                  "id":2,
-                 "name":"",
+                 "name":"barriersx",
                  "properties":[
                         {
                          "name":"bodyType",
@@ -67,7 +67,7 @@
                          "value":"static"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"barriersx",
                  "visible":true,
                  "width":15,
                  "x":0,
@@ -76,7 +76,7 @@
                 {
                  "height":15,
                  "id":32,
-                 "name":"",
+                 "name":"barrierup",
                  "properties":[
                         {
                          "name":"bodyType",
@@ -84,7 +84,7 @@
                          "value":"static"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"barrierup",
                  "visible":true,
                  "width":478.667,
                  "x":-1.42109e-14,
@@ -93,7 +93,7 @@
                 {
                  "height":14.3333,
                  "id":33,
-                 "name":"",
+                 "name":"barrierdw",
                  "properties":[
                         {
                          "name":"bodyType",
@@ -101,7 +101,7 @@
                          "value":"static"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"barrierdw",
                  "visible":true,
                  "width":479.667,
                  "x":-0.333333,
@@ -113,74 +113,6 @@
                  "name":"bodyType",
                  "type":"string",
                  "value":"static"
-                }],
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":4,
-         "name":"dinamici",
-         "objects":[
-                {
-                 "height":17.3333,
-                 "id":26,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"bodyType",
-                         "type":"string",
-                         "value":"dynamic"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":17,
-                 "x":127.333,
-                 "y":63
-                }, 
-                {
-                 "height":16,
-                 "id":27,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"bodyType",
-                         "type":"string",
-                         "value":"dynamic"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":48.3334,
-                 "y":176
-                }, 
-                {
-                 "height":16.3333,
-                 "id":28,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"bodyType",
-                         "type":"string",
-                         "value":"dynamic"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16.6667,
-                 "x":48,
-                 "y":287.333
-                }],
-         "opacity":1,
-         "properties":[
-                {
-                 "name":"bodyType",
-                 "type":"string",
-                 "value":"dynamic"
                 }],
          "type":"objectgroup",
          "visible":true,
@@ -409,8 +341,8 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":17.0000333333334,
-                 "x":318.666666666667,
+                 "width":17,
+                 "x":318.667,
                  "y":255.333
                 }, 
                 {
@@ -497,6 +429,57 @@
                  "width":15.6667,
                  "x":112,
                  "y":287.333
+                }, 
+                {
+                 "height":17,
+                 "id":34,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"bodyType",
+                         "type":"string",
+                         "value":"static"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16.3333333333333,
+                 "x":127.666666666667,
+                 "y":64.6666666666667
+                }, 
+                {
+                 "height":19.6666666666667,
+                 "id":35,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"bodyType",
+                         "type":"string",
+                         "value":"static"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15.6666666666667,
+                 "x":48,
+                 "y":176
+                }, 
+                {
+                 "height":24.6666666666666,
+                 "id":36,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"bodyType",
+                         "type":"string",
+                         "value":"static"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16.3333333333333,
+                 "x":48,
+                 "y":288
                 }],
          "opacity":1,
          "properties":[
@@ -579,7 +562,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":34,
+ "nextobjectid":37,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

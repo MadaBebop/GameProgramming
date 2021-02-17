@@ -21,7 +21,7 @@ local playBtn -- Creazione del bottone che darà inizio al livello 1
 
 -- Ascoltatore del bottone (sulla pressione)
 local function onPlayBtnRelease()
-			composer.gotoScene( "scene.livello1")
+			composer.gotoScene( "scene.livello2")
 end -- Fine funzione bottone
 
 ---------
@@ -29,7 +29,7 @@ end -- Fine funzione bottone
 --------
 function scene:create( event )
 	local sceneGroup = self.view -- Chiamata quando la scena non esiste
-	
+
 
 	-- background ATTENZIONE NECESSITA SFONDO
 	local background = display.newImageRect( "scene/menusrc/background.png", display.actualContentWidth, display.actualContentHeight )

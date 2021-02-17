@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="7">
+ <editorsettings>
+  <export target="../boss/livello1.json" format="json"/>
+ </editorsettings>
  <tileset firstgid="1" name="decorazioni" tilewidth="16" tileheight="16" spacing="1" margin="1" tilecount="90" columns="9">
   <image source="decorazionicity.png" width="160" height="180"/>
  </tileset>
@@ -58,19 +61,19 @@
 </data>
  </layer>
  <objectgroup id="3" name="barrier">
-  <object id="1" type="barrier" x="-3" y="-3" width="17" height="332" visible="0">
+  <object id="1" type="barriersx" x="0" y="1.5" width="6.5" height="317" visible="0">
    <properties>
     <property name="bodyType" value="static"/>
    </properties>
   </object>
-  <object id="2" type="barrierdx" x="946" y="-9" width="16" height="337" visible="0">
+  <object id="2" type="barrierdx" x="956.25" y="1" width="3.25" height="318.75" visible="0">
    <properties>
     <property name="bodyType" value="static"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="4" name="platform">
-  <object id="6" type="platform" x="-1" y="275" width="964" height="46" visible="0">
+  <object id="6" type="platform" x="2.33333" y="275" width="956" height="42.75" visible="0">
    <properties>
     <property name="bodyType" value="static"/>
    </properties>

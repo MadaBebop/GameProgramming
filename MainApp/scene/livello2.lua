@@ -30,9 +30,13 @@ function scene:create( event )
 	--end sounds
 
 	physics.start()
-	physics.setDrawMode("debug")
+	physics.setDrawMode("hybrid")
 	physics.setGravity( 0, 32 )
-
+	-- provo a incrementare le prestazioni dell'engine per risolvere i bug delle collisioni
+  physics.setPositionIterations( 6 ) -- std 3
+	physics.setVelocityIterations( 16 ) -- std 8
+	physics.setDebugErrorsEnabled() -- error catch
+	---------------------------------------------------------------------------------------
 	local filename = 'scene/maps/lvl2/livello2.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl2")

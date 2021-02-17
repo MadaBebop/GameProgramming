@@ -74,9 +74,10 @@ function M.createRobot()
     local robot = display.newSprite(idleSheet, robotSequences)
     robot:setSequence("Idle")
     robot:play()
-    robot:scale(0.5,0.5) -- scalato l'eroe a metà
-    local rectangle = { -7,12 , 7,12 , 7,-12 ,-7,-12 } --HitBox
+    local rectangle = { -7,12 , 7,12 , 7,-12 ,-7,-12 } --HitBox che verrà applicata all'eroe
     physics.addBody(robot, "dynamic", {bounce = 0,0 , shape = rectangle })
+    robot:scale(0.5,0.5) -- scalato l'eroe a metà
+
     local isFacing = 'right'
     local isDead = false
     robot.isFixedRotation = true
@@ -86,9 +87,9 @@ function M.createRobot()
     local function key (event)
         local keyName = event.keyName
         local phase = event.phase
+
         if (phase == 'down') then -- Quando un tasto viene premuto
-            if ('d' == keyName) then
-                -- d = movimento verso destra
+            if ('d' == keyName) then -- d = movimento verso destra
                 -- controllo se il personaggio è girato verso sx, se è così allora lo scalo e setto isFacing a destra
                 if (isFacing == 'left') then
                     robot:scale(-1, 1)
@@ -145,7 +146,7 @@ function M.createRobot()
 
     -- Funzione per lo sparo
     function robot:shoot(event)
-        robot:setSequence('Shoot') 
+        robot:setSequence('Shoot')
         robot:play()
         local proiettile = display.newImage('game/hero/robotfree/pngTagliate/Bullet_000.png')
         -- proiettile.name = 'proiettile'

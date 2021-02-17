@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="148">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="148">
  <editorsettings>
-  <export target="livello2.json" format="json"/>
+  <export target="livello2_1.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="tilesetlvl2" tilewidth="16" tileheight="27" tilecount="37" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
@@ -201,7 +201,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="acid">
+ <objectgroup id="3" name="acid" opacity="0">
   <properties>
    <property name="bodyType" value="dynamic"/>
    <property name="bounce" type="int" value="0"/>
@@ -264,7 +264,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="9" name="trap">
+ <objectgroup id="9" name="trap" opacity="0">
   <properties>
    <property name="bodyType" value="static"/>
   </properties>
@@ -314,9 +314,10 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="platform">
+ <objectgroup id="5" name="platform" opacity="0">
   <properties>
    <property name="bodyType" value="static"/>
+   <property name="isVisible" type="bool" value="false"/>
   </properties>
   <object id="94" x="96" y="111.5" width="64.25" height="32.5">
    <properties>
@@ -529,18 +530,21 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="8" name="barrier">
+ <objectgroup id="8" name="barrier" opacity="0">
   <properties>
    <property name="bodyType" value="static"/>
+   <property name="isVisible" type="bool" value="false"/>
   </properties>
   <object id="136" x="943.5" y="1.5" width="16.5" height="318.5">
    <properties>
     <property name="bodyType" value="static"/>
+    <property name="isVisible" type="bool" value="false"/>
    </properties>
   </object>
   <object id="137" x="1" y="1.5" width="14.5" height="318">
    <properties>
     <property name="bodyType" value="static"/>
+    <property name="isVisible" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

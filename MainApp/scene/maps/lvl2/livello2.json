@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"livello2.json"
+         "target":"livello2_1.json"
         }
     },
  "height":20,
@@ -279,7 +279,7 @@
                  "x":798.833,
                  "y":276.667
                 }],
-         "opacity":1,
+         "opacity":0,
          "properties":[
                 {
                  "name":"bodyType",
@@ -459,7 +459,7 @@
                  "x":848,
                  "y":129.25
                 }],
-         "opacity":1,
+         "opacity":0,
          "properties":[
                 {
                  "name":"bodyType",
@@ -1190,12 +1190,17 @@
                  "x":320,
                  "y":80.25
                 }],
-         "opacity":1,
+         "opacity":0,
          "properties":[
                 {
                  "name":"bodyType",
                  "type":"string",
                  "value":"static"
+                }, 
+                {
+                 "name":"isVisible",
+                 "type":"bool",
+                 "value":false
                 }],
          "type":"objectgroup",
          "visible":true,
@@ -1216,6 +1221,11 @@
                          "name":"bodyType",
                          "type":"string",
                          "value":"static"
+                        }, 
+                        {
+                         "name":"isVisible",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"",
@@ -1233,6 +1243,11 @@
                          "name":"bodyType",
                          "type":"string",
                          "value":"static"
+                        }, 
+                        {
+                         "name":"isVisible",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"",
@@ -1241,12 +1256,17 @@
                  "x":1,
                  "y":1.5
                 }],
-         "opacity":1,
+         "opacity":0,
          "properties":[
                 {
                  "name":"bodyType",
                  "type":"string",
                  "value":"static"
+                }, 
+                {
+                 "name":"isVisible",
+                 "type":"bool",
+                 "value":false
                 }],
          "type":"objectgroup",
          "visible":true,
@@ -1257,7 +1277,7 @@
  "nextobjectid":148,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.4.3",
+ "tiledversion":"1.4.2",
  "tileheight":16,
  "tilesets":[
         {

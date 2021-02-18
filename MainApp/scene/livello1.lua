@@ -30,8 +30,8 @@ function scene:create( event )
 
 	--sounds here*
 		
-	physics.setDrawMode("hybrid")
 	physics.start()
+	physics.setDrawMode("hybrid")
 	physics.setGravity( 0, 32 )
 
 	local filename = 'scene/maps/lvl1/livello1.json'
@@ -57,17 +57,41 @@ end -- fine del creazione
 -- Non funziona ma dovrebbe essere tutto corretto
 -- Penso che sia perche' bisogna sviluppare il gioco tramite 'Group Programming'
 -- Infatti sopra ho definito un newGroup chiamato camera, dentro al quale ho inserito la mappa
+-- local function moveCamera (event) 
+-- 	local offsetX = 100
+-- 	local heroWidth = hero.width
+-- 	local displayLeft = -sceneGroup.x
+
+-- 	local nonScrollingWidth = display.contentWidth - offsetX
+-- 	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
+-- 		if (hero.x > displayLeft + nonScrollingWidth) then
+-- 			if (sceneGroup.x >= mapLimitRight) then
+-- 				sceneGroup.x = mapLimitRight
+-- 			else
+-- 				sceneGroup.x = -hero.x + nonScrollingWidth
+-- 			end
+-- 		elseif (hero.x < displayLeft + heroWidth) then
+-- 			if (sceneGroup.x <= mapLimitLeft) then
+-- 				sceneGroup.x = mapLimitLeft
+-- 			else
+-- 				sceneGroup.x = -hero.x + heroWidth
+-- 			end			
+-- 		end
+-- 	end
+-- end
+
 local function moveCamera (event) 
 	local offsetX = 100
 	local heroWidth = hero.width
 	local displayLeft = -sceneGroup.x
 
 	local nonScrollingWidth = display.contentWidth - offsetX
+	local nonScroll = display.contentWidth - heroWidth
 	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
-		if (hero.x > displayLeft + nonScrollingWidth) then
-			sceneGroup.x = -hero.x + nonScrollingWidth
-		elseif (hero.x < displayLeft + offsetX) then
-			sceneGroup.x = -hero.x + offsetX
+		if (hero.x > displayLeft + nonScroll) then
+			sceneGroup.x = -hero.x + nonScroll
+		elseif (hero.x < displayLeft + heroWidth) then
+			sceneGroup.x = -hero.x + heroWidth
 		end
 	end
 end
@@ -80,7 +104,6 @@ function scene:show( event )
 	
 	local phase = event.phase
 	if ( phase == "will" ) then
-		-- sceneGroup:insert(map)
 		Runtime:addEventListener('enterFrame', moveCamera)
 	elseif ( phase == "did" ) then
 		-- Avviare un rumore di cambio scena

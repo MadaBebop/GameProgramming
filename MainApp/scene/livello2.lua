@@ -11,13 +11,12 @@ local robot = require 'game.hero.robot'
 ----------------
 --Creazione della variabile contenente i dati della mappa e la mappa stessa
 local map, hero
-local camera = display.newGroup()
 local mapLimitLeft = 0
 local mapLimitRight = 960
 
-
 -- Create a new Composer scene
 local scene = composer.newScene()
+local sceneGroup
 
 ---------
 --CREATE
@@ -25,21 +24,26 @@ local scene = composer.newScene()
 function scene:create( event )
 
 	local sceneGroup = self.view  -- Add scene display objects to this group
+	sceneGroup.anchorX = 0
+	sceneGroup.anchorY = 0
+	sceneGroup.anchorChildren = true
 
 	--sounds here*
-	--end sounds
 
 	physics.start()
 	physics.setDrawMode("hybrid")
 	physics.setGravity( 0, 32 )
 	-- provo a incrementare le prestazioni dell'engine per risolvere i bug delle collisioni
-  	physics.setPositionIterations( 6 ) -- std 3
-	physics.setVelocityIterations( 16 ) -- std 8
-	physics.setDebugErrorsEnabled() -- error catch
+  	-- physics.setPositionIterations( 6 ) -- std 3
+	-- physics.setVelocityIterations( 16 ) -- std 8
+	-- physics.setDebugErrorsEnabled() -- error catch
 	---------------------------------------------------------------------------------------
 	local filename = 'scene/maps/lvl2/livello2.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl2")
+
+	map.anchorX = 0
+	map.anchorY = 0
 
 	-- Eroe
 	hero = robot.createRobot()
@@ -49,6 +53,7 @@ function scene:create( event )
 
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )
+sceneGroup:insert( hero )
 
 end -- fine del creazione
 
@@ -59,14 +64,14 @@ end -- fine del creazione
 local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
-	local displayLeft = -camera.x
+	local displayLeft = -sceneGroup.x
 
 	local nonScrollingWidth = display.contentWidth - offsetX
 	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
 		if (hero.x > displayLeft + nonScrollingWidth) then
-			camera.x = -hero.x + nonScrollingWidth
+			sceneGroup.x = -hero.x + nonScrollingWidth
 		elseif (hero.x < displayLeft + offsetX) then
-			camera.x = -hero.x + offsetX
+			sceneGroup.x = -hero.x + offsetX
 		end
 	end
 end
@@ -79,7 +84,6 @@ function scene:show( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		camera:insert(map)
 		Runtime:addEventListener('enterFrame', moveCamera)
 	elseif ( phase == "did" ) then
 		-- Avviare un rumore di cambio scena

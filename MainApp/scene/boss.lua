@@ -6,7 +6,7 @@ local tiled = require "com.ponywolf.ponytiled"
 local physics = require "physics"
 local json = require "json"
 local robot = require 'game.hero.robot' -- includiamo il file che gestisce l'eroe
-local bossC = require 'game.boss.boss' -- includiamo il file che gestisce il boss
+local bossC = require 'game.boss.bossCreate' -- includiamo il file che gestisce il boss
 
 ----------------
 --- Variabili

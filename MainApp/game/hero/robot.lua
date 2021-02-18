@@ -121,6 +121,11 @@ function M.createRobot()
         end
     end
 
+    -- Ascoltatore del timer
+    local function listener (event)
+      print(robot.jumping)
+      robot.jumping = false -- dopo un secondo la fase di salto finisce, indipendentemente da altre pressione della spacebar
+    end
 
     local function spriteListener()
         robot.jumping = false
@@ -130,10 +135,10 @@ function M.createRobot()
         if not robot.jumping then
             robot:setSequence("Jump")
             robot:play()
-            robot:applyLinearImpulse(0, -0.05 )
-            robot.jumping = true
-            timer.performWithDelay(800, spriteListener)
-        end   
+            robot:applyLinearImpulse(0, -0.05 ) -- salto
+            robot.jumping = true  -- il robot sta saltando
+            timer.performWithDelay(1000,listener) -- delay per il passaggio da fase di salto a quella di non salto
+        end
     end
 
 

@@ -118,10 +118,13 @@ function M.createRobot()
             robot:setSequence("Idle")
             robot:play()
             robot:setLinearVelocity(0, 0)
-            robot.jumping = false
         end
     end
 
+
+    local function spriteListener()
+        robot.jumping = false
+    end
 
     function robot:jumpRobot(event)
         if not robot.jumping then
@@ -129,18 +132,8 @@ function M.createRobot()
             robot:play()
             robot:applyLinearImpulse(0, -0.05 )
             robot.jumping = true
-        end
-
-
-        -- Funzione locale per "ascoltare" quando l'animazione del salto termina e settare la sequenza idle
-        local function spriteListener(event)
-            if (event.phase == "ended") then
-                robot:setSequence("Idle")
-                robot:play()
-            end
-        end
-
-        robot:addEventListener("sprite", spriteListener)
+            timer.performWithDelay(800, spriteListener)
+        end   
     end
 
 

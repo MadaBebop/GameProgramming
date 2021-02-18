@@ -118,10 +118,15 @@ function M.createRobot()
             robot:setSequence("Idle")
             robot:play()
             robot:setLinearVelocity(0, 0)
-            robot.jumping = false
+            -- inserire il timer qui? Affinchè il secondo salto avvenga bisogna aspettare 1 sec per a funzione -> robot.jumping = true
         end
     end
 
+
+    local function listener (event)
+      print(robot.jumping)
+      robot.jumping = false
+    end
 
     function robot:jumpRobot(event)
         if not robot.jumping then
@@ -129,18 +134,8 @@ function M.createRobot()
             robot:play()
             robot:applyLinearImpulse(0, -0.05 )
             robot.jumping = true
+            timer.performWithDelay(1000,listener)
         end
-
-
-        -- Funzione locale per "ascoltare" quando l'animazione del salto termina e settare la sequenza idle
-        local function spriteListener(event)
-            if (event.phase == "ended") then
-                robot:setSequence("Idle")
-                robot:play()
-            end
-        end
-
-        robot:addEventListener("sprite", spriteListener)
     end
 
 

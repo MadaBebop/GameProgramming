@@ -33,7 +33,7 @@ function scene:create( event )
 	physics.setDrawMode("hybrid")
 	physics.setGravity( 0, 32 )
 	-- provo a incrementare le prestazioni dell'engine per risolvere i bug delle collisioni
-  physics.setPositionIterations( 6 ) -- std 3
+  	physics.setPositionIterations( 6 ) -- std 3
 	physics.setVelocityIterations( 16 ) -- std 8
 	physics.setDebugErrorsEnabled() -- error catch
 	---------------------------------------------------------------------------------------

@@ -21,7 +21,7 @@ local playBtn -- Creazione del bottone che darà inizio al livello 1
 
 -- Ascoltatore del bottone (sulla pressione)
 local function onPlayBtnRelease()
-			composer.gotoScene( "scene.livello2")
+			composer.gotoScene( "scene.boss")
 end -- Fine funzione bottone
 
 ---------

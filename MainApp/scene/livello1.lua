@@ -6,12 +6,13 @@ local tiled = require "com.ponywolf.ponytiled"
 local physics = require "physics"
 local json = require "json"
 local robot = require 'game.hero.robot'
+local zombie = require 'game.zombie.zombie'
 
 ----------------
 --- Variabili
 ----------------
 --Creazione della variabile contenente i dati della mappa e la mappa stessa
-local map, hero  -- dichiarazione delle variabili eroe mappa
+local map, hero, enemy  -- dichiarazione delle variabili eroe mappa
 local mapLimitLeft = 0  -- definizione dei limiti della mappa sx
 local mapLimitRight = 960 -- lim dx
 local intro
@@ -59,10 +60,16 @@ function scene:create( event )
 	hero.x = 200
 	hero.y = 200
 
+	enemy = zombie.createZombie()
+	enemy.x = 400
+	enemy.y = 200
+	print(enemy.type)
+
 -- GRUPPI SCENE --
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )
 sceneGroup:insert( hero )
+sceneGroup:insert( enemy )
 
 end -- fine del creazione
 -------------

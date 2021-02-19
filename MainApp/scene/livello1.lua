@@ -14,11 +14,18 @@ local robot = require 'game.hero.robot'
 local map, hero  -- dichiarazione delle variabili eroe mappa
 local mapLimitLeft = 0  -- definizione dei limiti della mappa sx
 local mapLimitRight = 960 -- lim dx
+local intro
 -- creazione di una nuova scena composer
 local scene = composer.newScene()
 local sceneGroup -- crazione variabile del group
 
--------------
+
+local function skipIntro()
+	intro:removeSelf()
+	intro = nil
+	physics.start()
+end
+	-------------
 -- fase CREATE
 -------------
 function scene:create( event )
@@ -35,6 +42,8 @@ function scene:create( event )
 	physics.setDrawMode("hybrid")
 	physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
 	physics.setGravity( 0, 32 )
+
+	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)
 
 	local filename = 'scene/maps/lvl1/livello1.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
@@ -93,10 +102,13 @@ function scene:show( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		physics.start() -- dopo aver caricato tutti gli oggetti della mappa posso avviare la fisica (miglioramento prestazioni)
+		intro.x = display.contentCenterX
+		intro.y = display.contentCenterY
 		Runtime:addEventListener('enterFrame', moveCamera)
 	elseif ( phase == "did" ) then
 		-- Avviare un rumore di cambio scena
+		intro.tap = skipIntro
+		intro:addEventListener('tap', skipIntro)
 	end
 
 end

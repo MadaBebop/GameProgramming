@@ -249,7 +249,7 @@
     <property name="density" type="float" value="1"/>
    </properties>
   </object>
-  <object id="148" x="432.5" y="276.25" width="239.75" height="28">
+  <object id="148" type="acid" x="432.5" y="276.25" width="239.75" height="28">
    <properties>
     <property name="bodyType" value="static"/>
     <property name="bounce" type="float" value="0"/>
@@ -296,7 +296,7 @@
     <property name="bodyType" value="static"/>
    </properties>
   </object>
-  <object id="146" x="848" y="129.25" width="16.25" height="15.25">
+  <object id="146" type="trap" x="848" y="129.25" width="16.25" height="15.25">
    <properties>
     <property name="bodyType" value="static"/>
    </properties>

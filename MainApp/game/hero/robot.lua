@@ -79,7 +79,7 @@ function M.createRobot()
     robot:scale(0.5,0.5) -- scalato l'eroe a metà
 
     local isFacing = 'right'
-    local isDead = false
+    robot.isDead = false
     robot.isFixedRotation = true
     robot.jumping = false
 
@@ -161,23 +161,42 @@ function M.createRobot()
         end
     end
 
+
+    function collision (event)
+        local phase = event.phase
+        local other = event.other
+
+        if (phase == 'began') then
+            if (other.type == 'zombie') then
+                robot:setSequence('Death')
+                robot:play()
+                isDead = true
+            end
+        elseif (phase == 'ended') then
+            physics.pause()
+
+        end
+        
+    end
+
     Runtime:addEventListener("key", key)
+    robot:addEventListener('collision', collision)
 
     return robot
 
 end
 
 
-function M.shootRobot(robot, event)
-    robot:setSequence("Shoot")
-    robot:play()
+-- function M.shootRobot(robot, event)
+--     robot:setSequence("Shoot")
+--     robot:play()
 
-    local proiettile = display.newSprite(proiettileSheet, proiettileSequences)
-    proiettile.x = robot.x + 30
-    proiettile.y = robot.y - 13
-    proiettile:play()
-    physics.addBody(proiettile, "kinematic")
-    proiettile:setLinearVelocity(200,0)
-end
+--     local proiettile = display.newSprite(proiettileSheet, proiettileSequences)
+--     proiettile.x = robot.x + 30
+--     proiettile.y = robot.y - 13
+--     proiettile:play()
+--     physics.addBody(proiettile, "kinematic")
+--     proiettile:setLinearVelocity(200,0)
+-- end
 
 return M

@@ -137,6 +137,7 @@ function scene:hide( event )
 
 	elseif ( phase == "did" ) then
 		Runtime:removeEventListener('enterFrame', moveCamera)
+		
 	end
 
 end

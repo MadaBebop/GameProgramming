@@ -171,11 +171,14 @@ function M.createRobot()
 
 
     local function death()
+        --local currentScene = composer.getSceneName("current")
+        --composer.removeScene("currentScene")
         composer.gotoScene('scene.menu', {effect = 'fade', time = 2000})
         robot.isDead = true
         robot:setSequence('Death')
         robot:play()
         removeEventListeners()
+
     end
 
 

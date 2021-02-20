@@ -26,7 +26,8 @@ local function skipIntro()
 	intro = nil
 	physics.start()
 end
-	-------------
+
+-------------
 -- fase CREATE
 -------------
 function scene:create( event )
@@ -55,14 +56,11 @@ function scene:create( event )
 	map.anchorY = 0
 
 
-	--Carico il personaggio + posizione
+	--Carico il personaggio
 	hero = robot.createRobot()
-	hero.x = 200
-	hero.y = 200
-
+	
+	-- Carico il nemico e per controllo verifico se enemy.type torna il tipo del nemico
 	enemy = zombie.createZombie()
-	enemy.x = 400
-	enemy.y = 200
 	print(enemy.type)
 
 -- GRUPPI SCENE --
@@ -109,6 +107,10 @@ function scene:show( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
+		hero.x = 200
+		hero.y = 200
+		enemy.x = 400
+		enemy.y = 200
 		intro.x = display.contentCenterX
 		intro.y = display.contentCenterY
 		Runtime:addEventListener('enterFrame', moveCamera)

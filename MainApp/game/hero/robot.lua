@@ -1,3 +1,5 @@
+local composer = require 'composer'
+
 local M = {}
 
 function M.createRobot()
@@ -115,9 +117,11 @@ function M.createRobot()
                 robot:jumpRobot()
             end
         elseif (phase == 'up') then -- Quando il tasto viene rilasciato
-            robot:setSequence("Idle")
-            robot:play()
-            robot:setLinearVelocity(0, 0)
+            if (not robot.isDead) then
+                robot:setSequence("Idle")
+                robot:play()
+                robot:setLinearVelocity(0, 0)
+            end
         end
     end
 
@@ -162,22 +166,38 @@ function M.createRobot()
     end
 
 
+    local function death()
+        composer.gotoScene('scene.menu', {effect = 'fade', time = 2000})
+        robot.isDead = true
+        robot:setSequence('Death')
+        robot:play()
+        removeEventListeners() 
+    end
+
+    
+
+
     function collision (event)
         local phase = event.phase
         local other = event.other
 
         if (phase == 'began') then
             if (other.type == 'zombie') then
-                robot:setSequence('Death')
-                robot:play()
-                isDead = true
-            end
-        elseif (phase == 'ended') then
-            physics.pause()
-
-        end
-        
+                death()     
+            elseif (phase == 'ended') then
+                print('ended') 
+             end
+        end   
     end
+
+
+    function removeEventListeners()
+        robot:removeEventListener('collision', collision)
+        Runtime:removeEventListener('key', key)   
+    end
+
+
+    
 
     Runtime:addEventListener("key", key)
     robot:addEventListener('collision', collision)

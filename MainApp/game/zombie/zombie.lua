@@ -58,7 +58,14 @@ function M.createZombie()
         zombie:setSequence('Death')
         zombie:play()
         zombie.isDead = true
+        transition.fadeOut(zombie, {time = 1500, onComplete = removeDeadBodies})
     end
+
+    local function removeDeadBodies()
+        zombie:removeSelf()
+        zombie = nil
+    end
+
 
     function collision (event)
         local phase = event.phase
@@ -66,11 +73,12 @@ function M.createZombie()
         
         if (phase == 'began') then
             if (other.type == 'bullet') then
-                die()  
+                die() 
+                other:removeSelf()
+                other = nil   
             end 
         elseif (phase == 'ended') then -- forse si puo togliere; cancello la scena direttamente
-            other:removeSelf()
-            other = nil 
+            
         end   
     end
 

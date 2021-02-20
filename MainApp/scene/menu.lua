@@ -19,7 +19,7 @@ local scene = composer.newScene()
 local playBtn -- Creazione del bottone che darà inizio al livello 1
 -- Ascoltatore del bottone
 local function onPlayBtnRelease()
-			composer.gotoScene( "scene.livello1")
+			composer.gotoScene( "scene.livello2")
 end
 
 --- slider e suo ascoltatore

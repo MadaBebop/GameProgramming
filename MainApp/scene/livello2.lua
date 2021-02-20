@@ -23,7 +23,7 @@ local sceneGroup
 ---------
 function scene:create( event )
 
-	local sceneGroup = self.view  -- Add scene display objects to this group
+	sceneGroup = self.view  -- Add scene display objects to this group
 	sceneGroup.anchorX = 0
 	sceneGroup.anchorY = 0
 	sceneGroup.anchorChildren = true
@@ -31,8 +31,8 @@ function scene:create( event )
 	--sounds here*
 	physics.start()
 	physics.setDrawMode("normal")
+	physics.pause()
 	physics.setGravity( 0, 32 )
-
 
 
 	local filename = 'scene/maps/lvl2/livello2.json'
@@ -48,9 +48,9 @@ function scene:create( event )
 	hero.y = 200
 
 
--- Insert our game items in the correct back-to-front order
-sceneGroup:insert( map )
-sceneGroup:insert( hero )
+	-- Insert our game items in the correct back-to-front order
+	sceneGroup:insert( map )
+	sceneGroup:insert( hero )
 
 end -- fine del creazione
 
@@ -65,8 +65,8 @@ local function moveCamera (event)
 	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
 		if (hero.x > displayLeft + nonScroll) then
 			sceneGroup.x = -hero.x + nonScroll
-		elseif (hero.x < displayLeft + offsetX) then
-			sceneGroup.x = -hero.x + offsetX
+		elseif (hero.x < displayLeft + heroWidth) then
+			sceneGroup.x = -hero.x + heroWidth
 		end
 	end
 end
@@ -75,6 +75,7 @@ end
 -- SHOW
 ---------
 function scene:show( event )
+	local sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then
@@ -90,6 +91,7 @@ end --end show
 -- HIDE
 ---------
 function scene:hide( event )
+	local sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then

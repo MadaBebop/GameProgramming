@@ -156,7 +156,7 @@ function M.createRobot()
         proiettile.isBullet = true
         proiettile.type = 'bullet'
         proiettile.isFixedRotation = true
-        
+
         if (isFacing == 'right') then
             proiettile.x = robot.x + 25
             proiettile.y = robot.y
@@ -175,34 +175,34 @@ function M.createRobot()
         robot.isDead = true
         robot:setSequence('Death')
         robot:play()
-        removeEventListeners() 
+        removeEventListeners()
     end
 
-    
+
 
 
     function collision (event)
         local phase = event.phase
         local other = event.other
-        
+
         if (phase == 'began') then
-            if (other.type == 'zombie') then
-                death()   
+            if (other.type == 'zombie' or other.type == 'trap') then
+                death()
             elseif (phase == 'ended') then -- forse si puo togliere; cancello la scena direttamente
                 robot:removeSelf()
-                robot = nil 
+                robot = nil
              end
-        end   
+        end
     end
 
 
     function removeEventListeners()
-        robot:removeEventListener('collision', collision)   
-        Runtime:removeEventListener('key', key)   
+        robot:removeEventListener('collision', collision)
+        Runtime:removeEventListener('key', key)
     end
 
 
-    
+
 
     Runtime:addEventListener("key", key)
     robot:addEventListener('collision', collision)

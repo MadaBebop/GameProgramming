@@ -48,9 +48,12 @@ function scene:create( event )
 
 	-- Eroe
 	hero = robot.createRobot()
-
+	hero.x = 100
+	hero.y = 200
 	--caricamento nemico
 	enemy = zombie.createZombie()
+	enemy.x =100
+	enemy.y =150
 
 	-- Siringe
 	siringe = display.newImage('scene/maps/lvl2/siringe.png')
@@ -76,7 +79,7 @@ local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
 	local displayLeft = -sceneGroup.x
-	-- local nonScrollingWidth = display.contentWidth - offsetX momentaneamente lo commento
+	local nonScrollingWidth = display.contentWidth - offsetX --momentaneamente lo commento
 	local nonScroll = display.contentWidth - heroWidth
 
 	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
@@ -99,12 +102,9 @@ function scene:show( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		hero.x = 50
-		hero.y = 50
-		-- enemy x,y?
+		physics.start()
 		Runtime:addEventListener('enterFrame', moveCamera)
 	elseif ( phase == "did" ) then
-		-- Avviare un rumore di cambio scena?
 
 	end
 
@@ -137,6 +137,7 @@ end
 -----------
 function scene:destroy( event )
 	local sceneGroup = self.view
+	
 
 end
 ----------------

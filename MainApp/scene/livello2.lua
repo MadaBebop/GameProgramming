@@ -9,8 +9,9 @@ local robot = require 'game.hero.robot'
 ----------------
 --- Variabili
 ----------------
---Creazione della variabile contenente i dati della mappa e la mappa stessa
-local map, hero
+
+local map, hero, siringe -- variabili della mappa, eroe e siringa
+-- Limiti della mappa
 local mapLimitLeft = 0
 local mapLimitRight = 960
 
@@ -28,13 +29,11 @@ function scene:create( event )
 	sceneGroup.anchorY = 0
 	sceneGroup.anchorChildren = true
 
-	--sounds here*
 	physics.start()
 	physics.setDrawMode("normal")
 	physics.setGravity( 0, 32 )
 
-
-
+	-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
 	local filename = 'scene/maps/lvl2/livello2.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl2")
@@ -47,12 +46,20 @@ function scene:create( event )
 	hero.x = 200
 	hero.y = 200
 
+	-- Siringe
+	siringe = display.newImage('scene/maps/lvl2/siringe.png')
+	physics.addBody(siringe, 'static')
 
--- Insert our game items in the correct back-to-front order
-sceneGroup:insert( map )
-sceneGroup:insert( hero )
 
-end -- fine del creazione
+	-- Insert our game items in the correct back-to-front order
+	sceneGroup:insert( map )
+	sceneGroup:insert( hero )
+	sceneGroup:insert( siringe )
+end -- fine del create
+
+---------------
+-- fine CREATE
+---------------
 
 -- Funzione per il camera scroll
 local function moveCamera (event)

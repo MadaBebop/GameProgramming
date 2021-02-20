@@ -84,6 +84,7 @@ function M.createRobot()
     robot.isDead = false
     robot.isFixedRotation = true
     robot.jumping = false
+    robot.type = 'robot'
 
 
     local function key (event)
@@ -127,7 +128,6 @@ function M.createRobot()
 
     -- Ascoltatore del timer
     local function listener (event)
-      print(robot.jumping)
       robot.jumping = false -- dopo un secondo la fase di salto finisce, indipendentemente da altre pressione della spacebar
     end
 
@@ -151,8 +151,12 @@ function M.createRobot()
         robot:setSequence('Shoot')
         robot:play()
         local proiettile = display.newImage('game/hero/robotfree/pngTagliate/Bullet_000.png')
-        -- proiettile.name = 'proiettile'
-        physics.addBody(proiettile, 'kinematic')
+        physics.addBody(proiettile, 'dynamic')
+        proiettile.gravityScale = 0
+        proiettile.isBullet = true
+        proiettile.type = 'bullet'
+        proiettile.isFixedRotation = true
+        
         if (isFacing == 'right') then
             proiettile.x = robot.x + 25
             proiettile.y = robot.y
@@ -180,19 +184,20 @@ function M.createRobot()
     function collision (event)
         local phase = event.phase
         local other = event.other
-
+        
         if (phase == 'began') then
             if (other.type == 'zombie') then
-                death()     
-            elseif (phase == 'ended') then
-                print('ended') 
+                death()   
+            elseif (phase == 'ended') then -- forse si puo togliere; cancello la scena direttamente
+                robot:removeSelf()
+                robot = nil 
              end
         end   
     end
 
 
     function removeEventListeners()
-        robot:removeEventListener('collision', collision)
+        robot:removeEventListener('collision', collision)   
         Runtime:removeEventListener('key', key)   
     end
 
@@ -205,18 +210,5 @@ function M.createRobot()
     return robot
 
 end
-
-
--- function M.shootRobot(robot, event)
---     robot:setSequence("Shoot")
---     robot:play()
-
---     local proiettile = display.newSprite(proiettileSheet, proiettileSequences)
---     proiettile.x = robot.x + 30
---     proiettile.y = robot.y - 13
---     proiettile:play()
---     physics.addBody(proiettile, "kinematic")
---     proiettile:setLinearVelocity(200,0)
--- end
 
 return M

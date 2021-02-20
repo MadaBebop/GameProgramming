@@ -9,8 +9,8 @@ function M.createZombie()
     local walkData = {width = 65, height = 78, numFrames = 10, sheetContentWidth = 650, sheetContentHeight = 78}
     local walkSheet = graphics.newImageSheet("game/zombie/walkSheet.png", walkData)
 
-    local deathData = {width = 63, height = 53, numFrames = 12, sheetContentWidth = 756, sheetContentHeight = 53}
-    local deathSheet = graphics.newImageSheet('game/zombie/zombieDeathSheet.png', deathData)
+    local deathData = {width = 88, height = 74, numFrames = 12, sheetContentWidth = 1056, sheetContentHeight = 74}
+    local deathSheet = graphics.newImageSheet('game/zombie/deathSheet.png', deathData)
 
 
     local zombieSequences = {
@@ -45,9 +45,9 @@ function M.createZombie()
 
     local zombie = display.newSprite(idleSheet, zombieSequences)
     zombie.type = 'zombie'
-    local zombieShape = {}
-    physics.addBody(zombie, 'dynamic', {friction = 1.0, density = 3.5})
-    zombie:scale(-1, 1)
+    local zombieShape = { -12,18 , 12,18 , 12,-15 ,-12,-15 }
+    physics.addBody(zombie, 'dynamic', {friction = 1.0, density = 3.5, shape = zombieShape})
+    zombie:scale(-0.5, 0.5)
     zombie:setSequence('Idle')
     zombie:play()
     zombie.isFixedRotation = true

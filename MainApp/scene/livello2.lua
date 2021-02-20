@@ -20,7 +20,7 @@ local scene = composer.newScene()
 local sceneGroup
 
 ---------
---CREATE
+--iniio CREATE
 ---------
 function scene:create( event )
 
@@ -62,7 +62,9 @@ end -- fine del create
 -- fine CREATE
 ---------------
 
--- Funzione per il camera scroll
+--------------------------------
+-- CAMERA SCROLL
+--------------------------------
 local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
@@ -78,9 +80,12 @@ local function moveCamera (event)
 		end
 	end
 end
+---------------------
+-- fine CAMERA SCROLL
+---------------------
 
 ---------
--- SHOW
+-- inizio SHOW
 ---------
 function scene:show( event )
 	local sceneGroup = self.view
@@ -89,14 +94,18 @@ function scene:show( event )
 	if ( phase == "will" ) then
 		Runtime:addEventListener('enterFrame', moveCamera)
 	elseif ( phase == "did" ) then
-		-- Avviare un rumore di cambio scena
+		-- Avviare un rumore di cambio scena?
 
 	end
 
-end --end show
+
+end
+---------
+--- fine SHOW
+--------
 
 ---------
--- HIDE
+-- inizio HIDE
 ---------
 function scene:hide( event )
 	local sceneGroup = self.view
@@ -108,15 +117,21 @@ function scene:hide( event )
 		Runtime:removeEventListener('enterFrame', moveCamera)
 	end
 
-end -- end hide
+end
+-------------
+--- fine HIDE
+-------------
 
----------
--- DESTROY
----------
+-----------
+-- inizio DESTROY
+-----------
 function scene:destroy( event )
   --collectgarbage()
 
-end -- end destroy
+end
+----------------
+--- fine DESTROY
+----------------
 
 ---------
 --ASCOLTATORI

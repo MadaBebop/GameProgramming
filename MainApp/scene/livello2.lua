@@ -98,7 +98,7 @@ end
 -- inizio SHOW
 --------------
 function scene:show( event )
-	local sceneGroup = self.view
+	sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then
@@ -118,7 +118,7 @@ end
 -- inizio HIDE
 ---------
 function scene:hide( event )
-	local sceneGroup = self.view
+sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then
@@ -136,8 +136,8 @@ end
 -- inizio DESTROY
 -----------
 function scene:destroy( event )
-	local sceneGroup = self.view
-	
+	sceneGroup = self.view
+
 
 end
 ----------------

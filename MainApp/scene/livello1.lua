@@ -15,6 +15,7 @@ local zombie = require 'game.zombie.zombie'
 local map, hero, enemy  -- dichiarazione delle variabili eroe mappa
 local mapLimitLeft = 0  -- definizione dei limiti della mappa sx
 local mapLimitRight = 960 -- lim dx
+
 local intro
 -- creazione di una nuova scena composer
 local scene = composer.newScene()
@@ -37,16 +38,14 @@ function scene:create( event )
 	sceneGroup.anchorY = 0
 	sceneGroup.anchorChildren = true
 
-	--sounds here*
-  -- end sound
-
 	physics.start()
-	physics.setDrawMode("hybrid")
+	physics.setDrawMode("normal")
 	physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
 	physics.setGravity( 0, 32 )
 
 	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)
 
+-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
 	local filename = 'scene/maps/lvl1/livello1.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl1")
@@ -56,10 +55,11 @@ function scene:create( event )
 	map.anchorY = 0
 
 
-	--Carico il personaggio
+	--Carico il personaggio 
 	hero = robot.createRobot()
+
 	print(hero.type)
-	
+
 	-- Carico il nemico e per controllo verifico se enemy.type torna il tipo del nemico
 	enemy = zombie.createZombie()
 	print(enemy.type)
@@ -70,16 +70,16 @@ sceneGroup:insert( map )
 sceneGroup:insert( hero )
 sceneGroup:insert( enemy )
 
-end -- fine del creazione
+end
 -------------
 -- fine CREATE
 -------------
 
-------------
-----Camera scroll function
-------------
+---------------
+-- CAMERA SCROLL
+---------------
 
-local function moveCamera (event) 
+local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
 	local displayLeft = -sceneGroup.x
@@ -93,16 +93,15 @@ local function moveCamera (event)
 			sceneGroup.x = -hero.x + heroWidth
 		end
 	end
-
 end
 ---------------
---- Fine camera scrolling
+--- Fine CAMERA SCROLL
 ---------------
 
 
-------------
--- fase SHOW
-------------
+--------------
+-- inizio SHOW
+--------------
 function scene:show( event )
 	local sceneGroup = self.view
 
@@ -122,13 +121,13 @@ function scene:show( event )
 	end
 
 end
----------------------------
+---------------
 --- fine SHOW
----------------------------
+---------------
 
 
 -------------
---fase HIDE
+--inizio HIDE
 -------------
 function scene:hide( event )
 	local sceneGroup = self.view
@@ -146,7 +145,7 @@ end
 --------------
 
 ---------------
--- fase DESTROY
+-- inizio DESTROY
 ---------------
 function scene:destroy( event )
 	local sceneGroup = self.view

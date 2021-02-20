@@ -6,11 +6,13 @@ local tiled = require "com.ponywolf.ponytiled"
 local physics = require "physics"
 local json = require "json"
 local robot = require 'game.hero.robot'
+local zombie = require 'game.zombie.zombie'
+
 ----------------
 --- Variabili
 ----------------
 
-local map, hero, siringe -- variabili della mappa, eroe e siringa
+local map, hero, enemy, siringe -- variabili della mappa, eroe e siringa
 -- Limiti della mappa
 local mapLimitLeft = 0
 local mapLimitRight = 960
@@ -19,9 +21,9 @@ local mapLimitRight = 960
 local scene = composer.newScene()
 local sceneGroup
 
----------
---iniio CREATE
----------
+---------------
+--inizio CREATE
+---------------
 function scene:create( event )
 
 	sceneGroup = self.view  -- Add scene display objects to this group
@@ -31,33 +33,38 @@ function scene:create( event )
 
 	physics.start()
 	physics.setDrawMode("normal")
-	physics.pause()
+	physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
 	physics.setGravity( 0, 32 )
+
 
 	-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
 	local filename = 'scene/maps/lvl2/livello2.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl2")
 
+	--Posizionamento della mappa
 	map.anchorX = 0
 	map.anchorY = 0
 
 	-- Eroe
 	hero = robot.createRobot()
-	hero.x = 200
-	hero.y = 200
+
+	--caricamento nemico
+	enemy = zombie.createZombie()
 
 	-- Siringe
 	siringe = display.newImage('scene/maps/lvl2/siringe.png')
 	physics.addBody(siringe, 'static')
+	siringe.x = 546
+	siringe.y = 209
 
-
+	-- GRUPPI SCENE --
 	-- Insert our game items in the correct back-to-front order
 	sceneGroup:insert( map )
 	sceneGroup:insert( hero )
+	sceneGroup:insert( enemy )
 	sceneGroup:insert( siringe )
-end -- fine del create
-
+end
 ---------------
 -- fine CREATE
 ---------------
@@ -84,14 +91,17 @@ end
 -- fine CAMERA SCROLL
 ---------------------
 
----------
+---------------
 -- inizio SHOW
----------
+--------------
 function scene:show( event )
 	local sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then
+		hero.x = 50
+		hero.y = 50
+		-- enemy x,y?
 		Runtime:addEventListener('enterFrame', moveCamera)
 	elseif ( phase == "did" ) then
 		-- Avviare un rumore di cambio scena?
@@ -126,7 +136,7 @@ end
 -- inizio DESTROY
 -----------
 function scene:destroy( event )
-  --collectgarbage()
+	local sceneGroup = self.view
 
 end
 ----------------

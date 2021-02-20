@@ -30,14 +30,11 @@ function scene:create( event )
 
 	--sounds here*
 
-	physics.start()
-	physics.setDrawMode("hybrid")
+	physics.setDrawMode("normal")
 	physics.setGravity( 0, 32 )
-	-- provo a incrementare le prestazioni dell'engine per risolvere i bug delle collisioni
-  	-- physics.setPositionIterations( 6 ) -- std 3
-	-- physics.setVelocityIterations( 16 ) -- std 8
-	-- physics.setDebugErrorsEnabled() -- error catch
-	---------------------------------------------------------------------------------------
+	physics.start()
+
+
 	local filename = 'scene/maps/lvl2/livello2.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl2")
@@ -58,9 +55,6 @@ sceneGroup:insert( hero )
 end -- fine del creazione
 
 -- Funzione per il camera scroll
--- Non funziona ma dovrebbe essere tutto corretto
--- Penso che sia perche' bisogna sviluppare il gioco tramite 'Group Programming'
--- Infatti sopra ho definito un newGroup chiamato camera, dentro al quale ho inserito la mappa
 local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
@@ -75,7 +69,6 @@ local function moveCamera (event)
 		end
 	end
 end
-
 
 ---------
 -- SHOW

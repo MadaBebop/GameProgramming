@@ -58,6 +58,7 @@ function scene:create( event )
 
 	--Carico il personaggio
 	hero = robot.createRobot()
+	print(hero.type)
 	
 	-- Carico il nemico e per controllo verifico se enemy.type torna il tipo del nemico
 	enemy = zombie.createZombie()

@@ -75,23 +75,21 @@ function scene:create( event )
 	--- fine slider
 	---------------
 
-	--Inserimento della musica
+	--Inserimento della musica e avvio
 	local music = audio.loadStream("music/WBA Free Track.mp3")
-	audio.setVolume(0.5)
-	audio.play(music,{loops=-1})
+	audio.setVolume(0.5) -- volume std al 50%
+	audio.play(music,{loops=-1}) -- avvio
 
 	-- Inserimento GRUPPI delle scene
-	sceneGroup:insert( background ) --Sfondo
-	sceneGroup:insert( playBtn )  --Bottone
-	sceneGroup:insert( slider ) -- slider
+	sceneGroup:insert( background ) --As.Sfondo
+	sceneGroup:insert( playBtn )  --As. Bottone
+	sceneGroup:insert( slider ) --As. Slider
 
 end -- Fine della creazione degli oggetti
 
-
 ------------
---- SHOW
+--- scena SHOW
 -----------
--- Mostrare la scena
 function scene:show( event )
 	local sceneGroup = self.view
 	local phase = event.phase
@@ -104,7 +102,7 @@ function scene:show( event )
 end
 
 ---------
---HIDE
+-- scena HIDE
 ---------
 -- Nascondere la scena
 function scene:hide( event )
@@ -113,9 +111,8 @@ function scene:hide( event )
 
 	if event.phase == "will" then
 		-- Called when the scene is on screen and is about to move off screen
-		--
-		-- INSERT code here to pause the scene
-		-- e.g. stop timers, stop animation, unload sounds, etc.)
+		audio.fadeOut( { time = 1000 } ) -- fading audio sottofondo
+
 	elseif phase == "did" then
 		-- Called when the scene is now off screen
 	end
@@ -137,8 +134,9 @@ function scene:destroy( event )
 		playBtn = nil
 	end
 
-	slider:removeSelf( )
-	
+	slider:removeSelf()
+	audio.stop()
+
 end
 ---------------------------------------------------------------------------------
 -- ASCOLTATORI della scena

@@ -59,8 +59,9 @@ local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
 	local displayLeft = -sceneGroup.x
-
 	local nonScrollingWidth = display.contentWidth - offsetX
+	local nonScroll = display.contentWidth - heroWidth
+	
 	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
 		if (hero.x > displayLeft + nonScrollingWidth) then
 			sceneGroup.x = -hero.x + nonScrollingWidth

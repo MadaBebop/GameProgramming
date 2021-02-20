@@ -51,6 +51,32 @@ function M.createZombie()
     zombie:setSequence('Idle')
     zombie:play()
     zombie.isFixedRotation = true
+    zombie.isDead = false
+
+
+    function die()
+        zombie:setSequence('Death')
+        zombie:play()
+        zombie.isDead = true
+    end
+
+    function collision (event)
+        local phase = event.phase
+        local other = event.other
+        
+        if (phase == 'began') then
+            if (other.type == 'bullet') then
+                die()  
+            end 
+        elseif (phase == 'ended') then -- forse si puo togliere; cancello la scena direttamente
+            other:removeSelf()
+            other = nil 
+        end   
+    end
+
+    zombie:addEventListener('collision', collision)
+
+
 
 
     return zombie

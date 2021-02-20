@@ -29,10 +29,10 @@ function scene:create( event )
 	sceneGroup.anchorChildren = true
 
 	--sounds here*
-
+	physics.start()
 	physics.setDrawMode("normal")
 	physics.setGravity( 0, 32 )
-	physics.start()
+
 
 
 	local filename = 'scene/maps/lvl2/livello2.json'
@@ -61,7 +61,7 @@ local function moveCamera (event)
 	local displayLeft = -sceneGroup.x
 	local nonScrollingWidth = display.contentWidth - offsetX
 	local nonScroll = display.contentWidth - heroWidth
-	
+
 	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
 		if (hero.x > displayLeft + nonScrollingWidth) then
 			sceneGroup.x = -hero.x + nonScrollingWidth

@@ -66,7 +66,7 @@
     <property name="bodyType" value="static"/>
    </properties>
   </object>
-  <object id="2" type="barrierdx" x="956.25" y="1" width="3.25" height="318.75" visible="0">
+  <object id="2" name="barrierdx" type="barrierdx" x="956.25" y="1" width="3.25" height="318.75" visible="0">
    <properties>
     <property name="bodyType" value="static"/>
    </properties>

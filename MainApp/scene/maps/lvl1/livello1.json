@@ -59,7 +59,7 @@
                 {
                  "height":318.75,
                  "id":2,
-                 "name":"",
+                 "name":"barrierdx",
                  "properties":[
                         {
                          "name":"bodyType",
@@ -98,7 +98,7 @@
                  "type":"platform",
                  "visible":false,
                  "width":956,
-                 "x":2.33333333333333,
+                 "x":2.33333,
                  "y":275
                 }],
          "opacity":1,

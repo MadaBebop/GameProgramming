@@ -29,6 +29,7 @@ local function skipIntro()
 	physics.start()
 end
 
+
 -------------
 -- fase CREATE
 -------------
@@ -55,15 +56,11 @@ function scene:create( event )
 	map.anchorX = 0
 	map.anchorY = 0
 
-
 	--Carico il personaggio
 	hero = robot.createRobot()
 
-	print(hero.type)
-
-	-- Carico il nemico e per controllo verifico se enemy.type torna il tipo del nemico
+	-- Carico il nemico
 	enemy = zombie.createZombie()
-	print(enemy.type)
 
 -- GRUPPI SCENE --
 -- Insert our game items in the correct back-to-front order
@@ -117,10 +114,14 @@ function scene:show( event )
 		-- Pos. Intro
 		intro.x = display.contentCenterX
 		intro.y = display.contentCenterY
+
+		-- Creazione ASCOLTATORI
+
 		-- Ascoltatore intro
 		Runtime:addEventListener('enterFrame', moveCamera)
-		-- restart physics è nella funzione skip!
-		
+
+		-- restart physics è nella funzione skip intro!
+
 	elseif ( phase == "did" ) then
 		intro.tap = skipIntro
 		intro:addEventListener('tap', skipIntro)
@@ -142,6 +143,7 @@ function scene:hide( event )
 	if ( phase == "will" ) then
 		physics.stop()
 	elseif ( phase == "did" ) then
+		--Rimozione degli ascoltatori della scena
 		Runtime:removeEventListener('enterFrame', moveCamera)
 
 	end
@@ -156,7 +158,7 @@ end
 ---------------
 function scene:destroy( event )
 	sceneGroup = self.view
-  --collectgarbage()
+
 
 end
 --------------

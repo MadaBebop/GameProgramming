@@ -22,7 +22,7 @@ local function onPlayBtnRelease()
 	-- Rimuove tutte le scene nascoste che non sono ancora state cancellate (non usiamo una cutscene visto che il gioco è molto piccolo)
 	composer.removeHidden()
 	-- Avvia il primo livello
-	composer.gotoScene( "scene.livello2")
+	composer.gotoScene( "scene.livello1")
 
 end
 

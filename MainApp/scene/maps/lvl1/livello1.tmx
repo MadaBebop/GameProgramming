@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="7">
  <editorsettings>
-  <export target="../boss/livello1.json" format="json"/>
+  <export target="livello1.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="decorazioni" tilewidth="16" tileheight="16" spacing="1" margin="1" tilecount="90" columns="9">
   <image source="decorazionicity.png" width="160" height="180"/>

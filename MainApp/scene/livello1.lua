@@ -22,6 +22,7 @@ local scene = composer.newScene()
 local sceneGroup -- crazione variabile del group
 
 
+-- Funzione dello skip dell'intro
 local function skipIntro()
 	intro:removeSelf()
 	intro = nil
@@ -107,15 +108,20 @@ function scene:show( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
+		-- Pos. Eroe
 		hero.x = 200
 		hero.y = 200
+		-- Pos. Enemy
 		enemy.x = 400
 		enemy.y = 200
+		-- Pos. Intro
 		intro.x = display.contentCenterX
 		intro.y = display.contentCenterY
+		-- Ascoltatore intro
 		Runtime:addEventListener('enterFrame', moveCamera)
+		-- restart physics è nella funzione skip!
+		
 	elseif ( phase == "did" ) then
-		-- Avviare un rumore di cambio scena
 		intro.tap = skipIntro
 		intro:addEventListener('tap', skipIntro)
 	end
@@ -134,10 +140,10 @@ function scene:hide( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-
+		physics.stop()
 	elseif ( phase == "did" ) then
 		Runtime:removeEventListener('enterFrame', moveCamera)
-		
+
 	end
 
 end

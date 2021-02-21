@@ -60,7 +60,7 @@ end -- fine del creazione
 -- SHOW
 ---------
 function scene:show( event )
-
+local sceneGroup = self.view
 	local phase = event.phase
 	if ( phase == "will" ) then
 
@@ -75,10 +75,11 @@ end --end show
 -- HIDE
 ---------
 function scene:hide( event )
+	local sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-
+		physics.stop()
 	elseif ( phase == "did" ) then
 
 	end
@@ -89,8 +90,8 @@ end -- end hide
 -- DESTROY
 ---------
 function scene:destroy( event )
-  --collectgarbage()
-
+  local sceneGroup = self.view
+	
 end -- end destroy
 
 ---------

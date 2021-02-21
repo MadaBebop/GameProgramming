@@ -19,7 +19,11 @@ local scene = composer.newScene()
 local playBtn -- Creazione del bottone che darà inizio al livello 1
 -- Ascoltatore del bottone
 local function onPlayBtnRelease()
-			composer.gotoScene( "scene.livello2")
+	-- Rimuove tutte le scene nascoste che non sono ancora state cancellate (non usiamo una cutscene visto che il gioco è molto piccolo)
+	composer.removeHidden()
+	-- Avvia il primo livello
+	composer.gotoScene( "scene.livello2")
+
 end
 
 --- slider e suo ascoltatore

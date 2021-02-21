@@ -48,18 +48,13 @@ function scene:create( event )
 
 	-- Eroe
 	hero = robot.createRobot()
-	hero.x = 100
-	hero.y = 200
+
 	--caricamento nemico
 	enemy = zombie.createZombie()
-	enemy.x =100
-	enemy.y =150
 
 	-- Siringe
 	siringe = display.newImage('scene/maps/lvl2/siringe.png')
 	physics.addBody(siringe, 'static')
-	siringe.x = 546
-	siringe.y = 209
 
 	-- GRUPPI SCENE --
 	-- Insert our game items in the correct back-to-front order
@@ -98,12 +93,26 @@ end
 -- inizio SHOW
 --------------
 function scene:show( event )
-	sceneGroup = self.view
+	local sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		physics.start()
+		--Pos. Eroe
+			hero.x = 100
+			hero.y = 200
+		--Pos. Enemy
+			enemy.x =100
+			enemy.y =150
+		--Pos. Siringe
+			siringe.x = 546
+			siringe.y = 209
+
+		--Ascoltatore scrolling
 		Runtime:addEventListener('enterFrame', moveCamera)
+
+		-- Faccio ripartire la fisica
+		physics.start()
+
 	elseif ( phase == "did" ) then
 
 	end
@@ -118,11 +127,11 @@ end
 -- inizio HIDE
 ---------
 function scene:hide( event )
-sceneGroup = self.view
+local sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-
+		--physics.stop() errore in caso di morte?
 	elseif ( phase == "did" ) then
 		Runtime:removeEventListener('enterFrame', moveCamera)
 	end
@@ -136,7 +145,7 @@ end
 -- inizio DESTROY
 -----------
 function scene:destroy( event )
-	sceneGroup = self.view
+	local sceneGroup = self.view
 
 
 end

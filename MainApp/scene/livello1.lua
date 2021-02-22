@@ -29,6 +29,13 @@ local function skipIntro()
 	physics.start()
 end
 
+function gameOver() 
+	if (hero.isDead) then
+		composer.gotoScene('scene.menu')
+	end
+end
+
+
 
 -------------
 -- fase CREATE
@@ -81,7 +88,6 @@ local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
 	local displayLeft = -sceneGroup.x
-	local nonScrollingWidth = display.contentWidth - offsetX
 	local nonScroll = display.contentWidth - heroWidth
 
 	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
@@ -119,6 +125,7 @@ function scene:show( event )
 
 		-- Ascoltatore intro
 		Runtime:addEventListener('enterFrame', moveCamera)
+		Runtime:addEventListener('enterFrame', gameOver)
 
 		-- restart physics è nella funzione skip intro!
 
@@ -141,10 +148,11 @@ function scene:hide( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		physics.stop()
+
 	elseif ( phase == "did" ) then
 		--Rimozione degli ascoltatori della scena
 		Runtime:removeEventListener('enterFrame', moveCamera)
+		Runtime:removeEventListener('enterFrame', gameOver)
 
 	end
 
@@ -169,10 +177,10 @@ end
 --ASCOLTATORI
 ---------
 -- Ascoltatori scene
-scene:addEventListener("create")
-scene:addEventListener("show")
-scene:addEventListener("hide")
-scene:addEventListener("destroy")
+scene:addEventListener("create", scene)
+scene:addEventListener("show", scene)
+scene:addEventListener("hide", scene)
+scene:addEventListener("destroy", scene)
 
 
 return scene --fine

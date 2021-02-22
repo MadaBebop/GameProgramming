@@ -12,7 +12,7 @@ local zombie = require 'game.zombie.zombie'
 --- Variabili
 ----------------
 --Creazione della variabile contenente i dati della mappa e la mappa stessa
-local map, hero, enemy  -- dichiarazione delle variabili eroe mappa
+local map, hero, enemy, door  -- dichiarazione delle variabili eroe mappa
 local mapLimitLeft = 0  -- definizione dei limiti della mappa sx
 local mapLimitRight = 960 -- lim dx
 
@@ -70,11 +70,21 @@ function scene:create( event )
 	-- Carico il nemico
 	enemy = zombie.createZombie()
 
+	door = display.newRect(20,20 , 20,20 , 20,20 , 20,20)
+	door.x = mapLimitRight - 50
+	door.y = 270
+	door:setFillColor( 0.5 )
+	-- door.isVisible = false
+	door.type = 'door'
+
+
+
 -- GRUPPI SCENE --
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )
 sceneGroup:insert( hero )
 sceneGroup:insert( enemy )
+sceneGroup:insert( door )
 
 end
 -------------
@@ -99,6 +109,23 @@ local function moveCamera (event)
 		end
 	end
 end
+
+
+local function checkZombieDead(event)
+	if (enemy.isDead) then
+		physics.addBody(door, 'static', {isSensor = true})
+	end
+end
+
+
+local function changeLevel(event) 
+	if (hero.isCollidingWithDoor) then
+		physics.stop()
+		composer.removeScene('scene.livello2')
+		composer.gotoScene('scene.livello2')
+	end
+end
+
 ---------------
 --- Fine CAMERA SCROLL
 ---------------
@@ -127,6 +154,8 @@ function scene:show( event )
 		-- Ascoltatore intro
 		Runtime:addEventListener('enterFrame', moveCamera)
 		Runtime:addEventListener('enterFrame', gameOver)
+		Runtime:addEventListener('enterFrame', checkZombieDead)
+		Runtime:addEventListener('enterFrame', changeLevel)
 
 		-- restart physics è nella funzione skip intro!
 
@@ -154,6 +183,8 @@ function scene:hide( event )
 		--Rimozione degli ascoltatori della scena
 		Runtime:removeEventListener('enterFrame', moveCamera)
 		Runtime:removeEventListener('enterFrame', gameOver)
+		Runtime:removeEventListener('enterFrame', checkZombieDead)
+		Runtime:removeEventListener('enterFrame', changeLevel)
 
 	end
 

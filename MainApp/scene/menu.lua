@@ -62,7 +62,7 @@ function scene:create( event )
 	-----
 	slider = widget.newSlider( -- definizione delle caratteristiche dello slider
     {
-        x = 500, -- posizionamento
+        x = display.contentWidth - 30, -- posizionamento
         y = 120,
 				orientation = "vertical",
         height = 100,
@@ -113,9 +113,10 @@ function scene:hide( event )
 	local phase = event.phase
 
 	if event.phase == "will" then
-		audio.fadeOut( { time = 1000 } ) -- fading audio sottofondo
+		
 
 	elseif phase == "did" then
+		
 		
 	end
 end
@@ -133,6 +134,7 @@ function scene:destroy( event )
 	end
 
 	slider:removeSelf()
+	slider = nil
 
 end
 ---------------------------------------------------------------------------------

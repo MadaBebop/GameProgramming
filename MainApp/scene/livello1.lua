@@ -25,13 +25,14 @@ local sceneGroup -- crazione variabile del group
 -- Funzione dello skip dell'intro
 local function skipIntro()
 	intro:removeSelf()
-	intro = nil
+	-- intro = nil
 	physics.start()
 end
 
 function gameOver() 
 	if (hero.isDead) then
-		composer.gotoScene('scene.menu')
+		-- composer.removeScene('scene.gameOver')
+		composer.gotoScene('scene.gameOver', {effect = 'fade', time = 500})
 	end
 end
 
@@ -48,7 +49,7 @@ function scene:create( event )
 	sceneGroup.anchorChildren = true
 
 	physics.start()
-	physics.setDrawMode("normal")
+	physics.setDrawMode("hybrid")
 	physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
 	physics.setGravity( 0, 32 )
 
@@ -166,8 +167,7 @@ end
 ---------------
 function scene:destroy( event )
 	sceneGroup = self.view
-
-
+	
 end
 --------------
 -- end DESTROY

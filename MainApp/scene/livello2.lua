@@ -32,8 +32,8 @@ function scene:create( event )
 	sceneGroup.anchorChildren = true
 
 	physics.start()
-	physics.setDrawMode("normal")
-	physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
+	physics.setDrawMode("hybrid")
+	-- physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
 	physics.setGravity( 0, 32 )
 
 

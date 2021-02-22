@@ -25,7 +25,7 @@ local sceneGroup -- crazione variabile del group
 -- Funzione dello skip dell'intro
 local function skipIntro()
 	intro:removeSelf()
-	-- intro = nil
+	intro = nil
 	physics.start()
 end
 
@@ -120,9 +120,9 @@ end
 
 local function changeLevel(event) 
 	if (hero.isCollidingWithDoor) then
-		physics.stop()
+		physics.pause()
 		composer.removeScene('scene.livello2')
-		composer.gotoScene('scene.livello2')
+		composer.gotoScene('scene.livello2', {effect = 'fade', time = 500})
 	end
 end
 

@@ -188,6 +188,8 @@ function M.createRobot()
         if (phase == 'began') then
             if (other.type == 'zombie' or other.type == 'trap') then
                 death()
+            elseif (other.type == 'door') then
+                robot.isCollidingWithDoor = true
             elseif (phase == 'ended') then -- forse si puo togliere; cancello la scena direttamente
                 robot:removeSelf()
                 robot = nil

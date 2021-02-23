@@ -15,8 +15,6 @@ function scene:show( event )
 	local options = {params = event.params}
 	if ( phase == "will" ) then
 		composer.removeScene( prevScene )
-		composer.removeHidden()
-
 	elseif ( phase == "did" ) then
 		composer.gotoScene(prevScene, options) -- avvio il livello 2
 	end

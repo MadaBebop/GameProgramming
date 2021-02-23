@@ -7,18 +7,16 @@ local physics = require "physics"
 local json = require "json"
 local robot = require 'game.hero.robot'
 local zombie = require 'game.zombie.zombie'
-local door = require 'game.lib.door'
 
 ----------------
 --- Variabili
 ----------------
 --Creazione della variabile contenente i dati della mappa e la mappa stessa
-local map, hero, enemy, porta  -- dichiarazione delle variabili eroe mappa
+local map, hero, enemy  -- dichiarazione delle variabili eroe mappa
 local mapLimitLeft = 0  -- definizione dei limiti della mappa sx
 local mapLimitRight = 960 -- lim dx
 
 local intro
-
 -- creazione di una nuova scena composer
 local scene = composer.newScene()
 local sceneGroup -- crazione variabile del group
@@ -31,14 +29,8 @@ local function skipIntro()
 	physics.start()
 end
 
-function gameOver()
-	if (hero.isDead) then
-		composer.removeScene('scene.gameOver')
-		composer.gotoScene('scene.gameOver', {effect = 'fade', time = 500})
-	end
-end
-
-
+local door = display.newRect(400, 200, 5, 150 )
+door.name ="door"
 
 -------------
 -- fase CREATE
@@ -52,17 +44,15 @@ function scene:create( event )
 
 	physics.start()
 	physics.setDrawMode("hybrid")
-	-- physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
+	physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
 	physics.setGravity( 0, 32 )
 
 	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)
 
-	-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
-	local filename =  event.params.map or 'scene/maps/lvl1/livello1.json'  
+-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
+	local filename = 'scene/maps/lvl1/livello1.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl1")
-
-
 
 	--Posizionamento della mappa
 	map.anchorX = 0
@@ -70,52 +60,75 @@ function scene:create( event )
 
 	--Carico il personaggio
 	hero = robot.createRobot()
+	hero.name = "hero"
 
 	-- Carico il nemico
 	enemy = zombie.createZombie()
 
-	-- Carico la porta
-	porta = door.createDoor()
-	porta.map = 'scene/maps/lvl2/livello2.json'
-
-
+	-- corpo disico porta
+	physics.addBody(door, "static")
+	door.isVisible = true
 
 -- GRUPPI SCENE --
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )
 sceneGroup:insert( hero )
 sceneGroup:insert( enemy )
-sceneGroup:insert( porta )
-
-
-
+sceneGroup:insert( door )
 end
 -------------
 -- fine CREATE
 -------------
+local function timerfiko(event)
+
+	-- Non vengono eliminati gli elementi di questo livello...
+composer.gotoScene("scene.cutScene")
+
+
+end
+
+--next level
+function onCollision( event )
+   -- when the collision starts...
+   if event.phase=="began" then
+  	 if (event.object1.name == "door" and event.object2.name == "hero")
+  	    or (event.object1.name == "hero" and event.object2.name == "door") then
+		 end
+   end
+   -- when the collision ends
+   if event.phase=="ended" then
+  	 if (event.object1.name == "door" and event.object2.name == "hero")
+  	    or (event.object1.name == "hero" and event.object2.name == "door") then
+  	 	if (door~=nil) then
+  		   door:removeSelf()
+  		   door=nil
+			 end -- fine if
+				timer.performWithDelay(100,timerfiko)
+       end
+   end
+  end
+
+Runtime:addEventListener("collision",onCollision)
 
 ---------------
 -- CAMERA SCROLL
 ---------------
+-- Camera scrolling variabili
 
 local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
 	local displayLeft = -sceneGroup.x
-	local nonScroll = display.contentWidth / 2
-
-	if (hero.x >= mapLimitLeft + offsetX and hero.x <= mapLimitRight - nonScroll) then
+	local nonScrollingWidth = display.contentWidth - offsetX
+	local nonScroll = display.contentWidth - heroWidth
+	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
 		if (hero.x > displayLeft + nonScroll) then
 			sceneGroup.x = -hero.x + nonScroll
-		elseif (hero.x < displayLeft + offsetX) then
-			sceneGroup.x = -hero.x + offsetX
+		elseif (hero.x < displayLeft + heroWidth) then
+			sceneGroup.x = -hero.x + heroWidth
 		end
 	end
-	return true
 end
-
-
-
 
 ---------------
 --- Fine CAMERA SCROLL
@@ -139,15 +152,12 @@ function scene:show( event )
 		-- Pos. Intro
 		intro.x = display.contentCenterX
 		intro.y = display.contentCenterY
-		-- Pos porta
-		porta.x = mapLimitRight - 50
-		porta.y = 270
 
 		-- Creazione ASCOLTATORI
 
 		-- Ascoltatore intro
 		Runtime:addEventListener('enterFrame', moveCamera)
-		Runtime:addEventListener('enterFrame', gameOver)
+
 		-- restart physics è nella funzione skip intro!
 
 	elseif ( phase == "did" ) then
@@ -169,13 +179,11 @@ function scene:hide( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		Runtime:removeEventListener('enterFrame', moveCamera)
-		Runtime:removeEventListener('enterFrame', gameOver)
-
+		--physics.stop()
 	elseif ( phase == "did" ) then
 		--Rimozione degli ascoltatori della scena
-		physics.pause()
-		
+		Runtime:removeEventListener('enterFrame', moveCamera)
+		Runtime:removeEventListener("collision",onCollision)
 	end
 
 end
@@ -187,8 +195,9 @@ end
 -- inizio DESTROY
 ---------------
 function scene:destroy( event )
-	sceneGroup = self.view
-
+	local sceneGroup = self.view
+-- rimuovere listener, timers
+timer.cancelAll()
 end
 --------------
 -- end DESTROY
@@ -198,10 +207,10 @@ end
 --ASCOLTATORI
 ---------
 -- Ascoltatori scene
-scene:addEventListener("create", scene)
-scene:addEventListener("show", scene)
-scene:addEventListener("hide", scene)
-scene:addEventListener("destroy", scene)
+scene:addEventListener("create")
+scene:addEventListener("show")
+scene:addEventListener("hide")
+scene:addEventListener("destroy")
 
 
 return scene --fine

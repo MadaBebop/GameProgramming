@@ -29,9 +29,9 @@ local function skipIntro()
 	physics.start()
 end
 
-function gameOver() 
+function gameOver()
 	if (hero.isDead) then
-		-- composer.removeScene('scene.gameOver')
+		composer.removeScene('scene.gameOver')
 		composer.gotoScene('scene.gameOver', {effect = 'fade', time = 500})
 	end
 end
@@ -115,11 +115,14 @@ local function checkZombieDead(event)
 	end
 end
 
+local function timerfiko(event)
+	-- Non vengono eliminati gli elementi di questo livello...?
+composer.gotoScene('scene.cutScene', {effect = 'fade', time = 500})
+end
 
-local function changeLevel(event) 
+local function changeLevel(event)
 	if (hero.isCollidingWithDoor) then
-		composer.removeScene('scene.livello2')
-		composer.gotoScene('scene.livello2', {effect = 'fade', time = 500})
+		timer.performWithDelay(100,timerfiko)
 	end
 end
 
@@ -197,11 +200,11 @@ end
 function scene:destroy( event )
 	sceneGroup = self.view
 
-	
+
 
 	door:removeSelf()
 	door = nil
-	
+
 end
 --------------
 -- end DESTROY

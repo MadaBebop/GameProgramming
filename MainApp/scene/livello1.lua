@@ -120,8 +120,6 @@ end
 
 local function changeLevel(event) 
 	if (hero.isCollidingWithDoor) then
-		sceneGroup:removeSelf()
-		sceneGroup = nil
 		composer.removeScene('scene.livello2')
 		composer.gotoScene('scene.livello2', {effect = 'fade', time = 500})
 	end

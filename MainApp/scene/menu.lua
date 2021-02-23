@@ -17,7 +17,7 @@ local scene = composer.newScene()
 
 local background
 local playBtn
-local slider 
+local slider
 local music
 
 
@@ -25,7 +25,7 @@ local music
 
 -- Funzione per far partire il livello 1 alla pressione del tasto play
 local function onPlayBtnRelease()
-	composer.removeScene('scene.livello1')
+	composer.removeHidden() -- é necessario
 	composer.gotoScene( "scene.livello1")
 end
 
@@ -43,7 +43,7 @@ function scene:create( event )
 
 	-- background
 	background = display.newImageRect( "scene/menusrc/background.png", display.actualContentWidth, display.actualContentHeight )
-	
+
 
 	---
 	-- Creazione del widget bottone (Il quale carichera il gioco)
@@ -54,9 +54,9 @@ function scene:create( event )
 		overFile = "scene/menusrc/button-over.png", --
 		width = 154, height = 40,  -- Dimensioni
 		onRelease = onPlayBtnRelease	--Chiamata alla funzione del bottone!
-	} 
+	}
 
-	
+
 	-----
 	-- Slider
 	-----
@@ -74,14 +74,14 @@ function scene:create( event )
 	--Inserimento della musica e avvio
 	music = audio.loadStream("music/WBA Free Track.mp3")
 	audio.setVolume(0.5) -- volume std al 50%
-	
+
 
 	-- Inserimento GRUPPI delle scene
 	sceneGroup:insert( background ) --As.Sfondo
 	sceneGroup:insert( playBtn )  --As. Bottone
 	sceneGroup:insert( slider ) --As. Slider
 
-end 
+end
 
 ------------
 --- scena SHOW
@@ -96,7 +96,7 @@ function scene:show( event )
 		background.anchorY = 0
 		background.x = 0 + display.screenOriginX
 		background.y = 0 + display.screenOriginY
-		playBtn.x = display.contentCenterX  
+		playBtn.x = display.contentCenterX
 		playBtn.y = display.contentHeight - 125
 	elseif phase == "did" then
 		audio.play(music,{loops=-1}) -- avvio
@@ -113,11 +113,11 @@ function scene:hide( event )
 	local phase = event.phase
 
 	if event.phase == "will" then
-		
+
 
 	elseif phase == "did" then
-		
-		
+
+
 	end
 end
 

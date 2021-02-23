@@ -120,6 +120,8 @@ end
 
 local function changeLevel(event) 
 	if (hero.isCollidingWithDoor) then
+		sceneGroup:removeSelf()
+		sceneGroup = nil
 		composer.removeScene('scene.livello2')
 		composer.gotoScene('scene.livello2', {effect = 'fade', time = 500})
 	end
@@ -180,7 +182,7 @@ function scene:hide( event )
 
 	elseif ( phase == "did" ) then
 		--Rimozione degli ascoltatori della scena
-		physics.pause()
+		-- physics.pause()
 		Runtime:removeEventListener('enterFrame', moveCamera)
 		Runtime:removeEventListener('enterFrame', gameOver)
 		Runtime:removeEventListener('enterFrame', checkZombieDead)
@@ -198,6 +200,11 @@ end
 ---------------
 function scene:destroy( event )
 	sceneGroup = self.view
+
+	
+
+	door:removeSelf()
+	door = nil
 	
 end
 --------------

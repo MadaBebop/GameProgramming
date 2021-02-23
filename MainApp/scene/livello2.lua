@@ -56,12 +56,16 @@ function scene:create( event )
 	siringe = display.newImage('scene/maps/lvl2/siringe.png')
 	physics.addBody(siringe, 'static')
 
+	
+	
 	-- GRUPPI SCENE --
 	-- Insert our game items in the correct back-to-front order
 	sceneGroup:insert( map )
 	sceneGroup:insert( hero )
 	sceneGroup:insert( enemy )
 	sceneGroup:insert( siringe )
+
+	
 end
 ---------------
 -- fine CREATE
@@ -74,16 +78,16 @@ local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
 	local displayLeft = -sceneGroup.x
-	local nonScrollingWidth = display.contentWidth - offsetX --momentaneamente lo commento
-	local nonScroll = display.contentWidth - heroWidth
+	local nonScroll = display.contentWidth / 2
 
-	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
+	if (hero.x >= mapLimitLeft + offsetX and hero.x <= mapLimitRight - nonScroll) then
 		if (hero.x > displayLeft + nonScroll) then
 			sceneGroup.x = -hero.x + nonScroll
-		elseif (hero.x < displayLeft + heroWidth) then
-			sceneGroup.x = -hero.x + heroWidth
+		elseif (hero.x < displayLeft + offsetX) then
+			sceneGroup.x = -hero.x + offsetX
 		end
 	end
+	return true
 end
 ---------------------
 -- fine CAMERA SCROLL
@@ -93,7 +97,7 @@ end
 -- inizio SHOW
 --------------
 function scene:show( event )
-	sceneGroup = self.view
+	local sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then
@@ -108,12 +112,13 @@ function scene:show( event )
 			siringe.y = 209
 
 		--Ascoltatore scrolling
-		Runtime:addEventListener('enterFrame', moveCamera)
+		
 
 		-- Faccio ripartire la fisica
-		physics.start()
+		
 
 	elseif ( phase == "did" ) then
+		Runtime:addEventListener('enterFrame', moveCamera)
 
 	end
 
@@ -127,11 +132,11 @@ end
 -- inizio HIDE
 ---------
 function scene:hide( event )
-sceneGroup = self.view
+	sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		--physics.stop() errore in caso di morte?
+		
 	elseif ( phase == "did" ) then
 		Runtime:removeEventListener('enterFrame', moveCamera)
 	end

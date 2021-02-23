@@ -13,7 +13,11 @@ local door = require 'game.lib.door'
 --- Variabili
 ----------------
 --Creazione della variabile contenente i dati della mappa e la mappa stessa
+<<<<<<< Updated upstream
 local map, hero, enemy, porta  -- dichiarazione delle variabili eroe mappa
+=======
+local map, hero, enemy  -- dichiarazione delle variabili eroe mappa
+>>>>>>> Stashed changes
 local mapLimitLeft = 0  -- definizione dei limiti della mappa sx
 local mapLimitRight = 960 -- lim dx
 
@@ -31,14 +35,8 @@ local function skipIntro()
 	physics.start()
 end
 
-function gameOver()
-	if (hero.isDead) then
-		composer.removeScene('scene.gameOver')
-		composer.gotoScene('scene.gameOver', {effect = 'fade', time = 500})
-	end
-end
-
-
+local door = display.newRect(400, 200, 5, 150 )
+door.name ="door"
 
 -------------
 -- fase CREATE
@@ -57,8 +55,13 @@ function scene:create( event )
 
 	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)
 
+<<<<<<< Updated upstream
 	-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
 	local filename =  event.params.map or 'scene/maps/lvl1/livello1.json'  
+=======
+-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
+	local filename = 'scene/maps/lvl1/livello1.json'
+>>>>>>> Stashed changes
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl1")
 
@@ -70,52 +73,100 @@ function scene:create( event )
 
 	--Carico il personaggio
 	hero = robot.createRobot()
+	hero.name = "hero"
 
 	-- Carico il nemico
 	enemy = zombie.createZombie()
 
+<<<<<<< Updated upstream
 	-- Carico la porta
 	porta = door.createDoor()
 	porta.map = 'scene/maps/lvl2/livello2.json'
 
 
+=======
+	-- corpo disico porta
+	physics.addBody(door, "static")
+	door.isVisible = true
+>>>>>>> Stashed changes
 
 -- GRUPPI SCENE --
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )
 sceneGroup:insert( hero )
 sceneGroup:insert( enemy )
+<<<<<<< Updated upstream
 sceneGroup:insert( porta )
 
 
 
+=======
+sceneGroup:insert( door )
+>>>>>>> Stashed changes
 end
 -------------
 -- fine CREATE
 -------------
+local function timerfiko(event)
+
+	Runtime:removeEventListener('enterFrame', moveCamera)
+	-- Non vengono eliminati gli elementi di questo livello...
+	composer.gotoScene("scene.livello2")
+
+end
+
+--next level
+function onCollision( event )
+   -- when the collision starts...
+   if event.phase=="began" then
+  	 if (event.object1.name == "door" and event.object2.name == "hero")
+  	    or (event.object1.name == "hero" and event.object2.name == "door") then
+		 end
+   end
+   -- when the collision ends
+   if event.phase=="ended" then
+  	 if (event.object1.name == "door" and event.object2.name == "hero")
+  	    or (event.object1.name == "hero" and event.object2.name == "door") then
+  	 	if (door~=nil) then
+
+  		   door:removeSelf()
+  		   door=nil
+
+			 end -- fine if
+				timer.performWithDelay(100,timerfiko)
+       end
+   end
+  end
+
+Runtime:addEventListener("collision",onCollision)
 
 ---------------
 -- CAMERA SCROLL
 ---------------
+-- Camera scrolling variabili
 
 local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
 	local displayLeft = -sceneGroup.x
-	local nonScroll = display.contentWidth / 2
-
-	if (hero.x >= mapLimitLeft + offsetX and hero.x <= mapLimitRight - nonScroll) then
+	local nonScrollingWidth = display.contentWidth - offsetX
+	local nonScroll = display.contentWidth - heroWidth
+	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
 		if (hero.x > displayLeft + nonScroll) then
 			sceneGroup.x = -hero.x + nonScroll
-		elseif (hero.x < displayLeft + offsetX) then
-			sceneGroup.x = -hero.x + offsetX
+		elseif (hero.x < displayLeft + heroWidth) then
+			sceneGroup.x = -hero.x + heroWidth
 		end
 	end
+<<<<<<< Updated upstream
 	return true
 end
 
 
 
+=======
+end
+>>>>>>> Stashed changes
 
 ---------------
 --- Fine CAMERA SCROLL
@@ -147,7 +198,11 @@ function scene:show( event )
 
 		-- Ascoltatore intro
 		Runtime:addEventListener('enterFrame', moveCamera)
+<<<<<<< Updated upstream
 		Runtime:addEventListener('enterFrame', gameOver)
+=======
+
+>>>>>>> Stashed changes
 		-- restart physics è nella funzione skip intro!
 
 	elseif ( phase == "did" ) then
@@ -170,7 +225,17 @@ function scene:hide( event )
 	local phase = event.phase
 	if ( phase == "will" ) then
 		Runtime:removeEventListener('enterFrame', moveCamera)
+<<<<<<< Updated upstream
 		Runtime:removeEventListener('enterFrame', gameOver)
+=======
+		hero:removeSelf()
+		hero = nil
+		Runtime:removeEventListener("collision",onCollision)
+
+		--physics.stop()
+	elseif ( phase == "did" ) then
+		--Rimozione degli ascoltatori della scena
+>>>>>>> Stashed changes
 
 	elseif ( phase == "did" ) then
 		--Rimozione degli ascoltatori della scena
@@ -187,8 +252,14 @@ end
 -- inizio DESTROY
 ---------------
 function scene:destroy( event )
+<<<<<<< Updated upstream
 	sceneGroup = self.view
 
+=======
+	local sceneGroup = self.view
+-- rimuovere listener, timers
+timer.cancelAll()
+>>>>>>> Stashed changes
 end
 --------------
 -- end DESTROY
@@ -198,10 +269,10 @@ end
 --ASCOLTATORI
 ---------
 -- Ascoltatori scene
-scene:addEventListener("create", scene)
-scene:addEventListener("show", scene)
-scene:addEventListener("hide", scene)
-scene:addEventListener("destroy", scene)
+scene:addEventListener("create")
+scene:addEventListener("show")
+scene:addEventListener("hide")
+scene:addEventListener("destroy")
 
 
 return scene --fine

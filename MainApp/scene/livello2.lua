@@ -25,7 +25,7 @@ local sceneGroup
 --inizio CREATE
 ---------------
 function scene:create( event )
-
+	composer.removeHidden()
 	sceneGroup = self.view  -- Add scene display objects to this group
 	sceneGroup.anchorX = 0
 	sceneGroup.anchorY = 0
@@ -56,8 +56,8 @@ function scene:create( event )
 	siringe = display.newImage('scene/maps/lvl2/siringe.png')
 	physics.addBody(siringe, 'static')
 
-	
-	
+
+
 	-- GRUPPI SCENE --
 	-- Insert our game items in the correct back-to-front order
 	sceneGroup:insert( map )
@@ -65,7 +65,7 @@ function scene:create( event )
 	sceneGroup:insert( enemy )
 	sceneGroup:insert( siringe )
 
-	
+
 end
 ---------------
 -- fine CREATE
@@ -112,10 +112,10 @@ function scene:show( event )
 			siringe.y = 209
 
 		--Ascoltatore scrolling
-		
+
 
 		-- Faccio ripartire la fisica
-		
+
 
 	elseif ( phase == "did" ) then
 		Runtime:addEventListener('enterFrame', moveCamera)
@@ -136,7 +136,7 @@ function scene:hide( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		
+
 	elseif ( phase == "did" ) then
 		Runtime:removeEventListener('enterFrame', moveCamera)
 	end

@@ -7,16 +7,18 @@ local physics = require "physics"
 local json = require "json"
 local robot = require 'game.hero.robot'
 local zombie = require 'game.zombie.zombie'
+local door = require 'game.lib.door'
 
 ----------------
 --- Variabili
 ----------------
 --Creazione della variabile contenente i dati della mappa e la mappa stessa
-local map, hero, enemy, door  -- dichiarazione delle variabili eroe mappa
+local map, hero, enemy, porta  -- dichiarazione delle variabili eroe mappa
 local mapLimitLeft = 0  -- definizione dei limiti della mappa sx
 local mapLimitRight = 960 -- lim dx
 
 local intro
+
 -- creazione di una nuova scena composer
 local scene = composer.newScene()
 local sceneGroup -- crazione variabile del group
@@ -50,19 +52,17 @@ function scene:create( event )
 
 	physics.start()
 	physics.setDrawMode("hybrid")
-	physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
+	-- physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
 	physics.setGravity( 0, 32 )
 
 	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)
 
 	-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
-	local filename = event.params.map or 'scene/maps/lvl1/livello1.json'
+	local filename =  event.params.map or 'scene/maps/lvl1/livello1.json'  
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl1")
 
-	map.extension = 'scene/game/lib'
 
-	map:extend('door')
 
 	--Posizionamento della mappa
 	map.anchorX = 0
@@ -74,7 +74,9 @@ function scene:create( event )
 	-- Carico il nemico
 	enemy = zombie.createZombie()
 
-
+	-- Carico la porta
+	porta = door.createDoor()
+	porta.map = 'scene/maps/lvl2/livello2.json'
 
 
 
@@ -83,6 +85,9 @@ function scene:create( event )
 sceneGroup:insert( map )
 sceneGroup:insert( hero )
 sceneGroup:insert( enemy )
+sceneGroup:insert( porta )
+
+
 
 end
 -------------
@@ -109,22 +114,8 @@ local function moveCamera (event)
 	return true
 end
 
-local function checkZombieDead(event)
-	if (enemy.isDead) then
-		physics.addBody(door, 'static', {isSensor = true})
-	end
-end
 
-local function timerfiko(event)
-	-- Non vengono eliminati gli elementi di questo livello...?
-composer.gotoScene('scene.cutScene', {effect = 'fade', time = 500})
-end
 
-local function changeLevel(event)
-	if (hero.isCollidingWithDoor) then
-		timer.performWithDelay(100,timerfiko)
-	end
-end
 
 ---------------
 --- Fine CAMERA SCROLL
@@ -148,15 +139,15 @@ function scene:show( event )
 		-- Pos. Intro
 		intro.x = display.contentCenterX
 		intro.y = display.contentCenterY
+		-- Pos porta
+		porta.x = mapLimitRight - 50
+		porta.y = 270
 
 		-- Creazione ASCOLTATORI
 
 		-- Ascoltatore intro
 		Runtime:addEventListener('enterFrame', moveCamera)
 		Runtime:addEventListener('enterFrame', gameOver)
-		Runtime:addEventListener('enterFrame', checkZombieDead)
-		Runtime:addEventListener('enterFrame', changeLevel)
-
 		-- restart physics è nella funzione skip intro!
 
 	elseif ( phase == "did" ) then
@@ -178,15 +169,13 @@ function scene:hide( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
+		Runtime:removeEventListener('enterFrame', moveCamera)
+		Runtime:removeEventListener('enterFrame', gameOver)
 
 	elseif ( phase == "did" ) then
 		--Rimozione degli ascoltatori della scena
-		-- physics.pause()
-		Runtime:removeEventListener('enterFrame', moveCamera)
-		Runtime:removeEventListener('enterFrame', gameOver)
-		Runtime:removeEventListener('enterFrame', checkZombieDead)
-		Runtime:removeEventListener('enterFrame', changeLevel)
-
+		physics.pause()
+		
 	end
 
 end
@@ -199,11 +188,6 @@ end
 ---------------
 function scene:destroy( event )
 	sceneGroup = self.view
-
-
-
-	door:removeSelf()
-	door = nil
 
 end
 --------------

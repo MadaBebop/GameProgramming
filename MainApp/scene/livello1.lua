@@ -56,9 +56,13 @@ function scene:create( event )
 	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)
 
 	-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
-	local filename = 'scene/maps/lvl1/livello1.json'
+	local filename = event.params.map or 'scene/maps/lvl1/livello1.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl1")
+
+	map.extension = 'scene/game/lib'
+
+	map:extend('door')
 
 	--Posizionamento della mappa
 	map.anchorX = 0
@@ -70,12 +74,7 @@ function scene:create( event )
 	-- Carico il nemico
 	enemy = zombie.createZombie()
 
-	door = display.newRect(20,20 , 20,20 , 20,20 , 20,20)
-	door.x = mapLimitRight - 50
-	door.y = 270
-	door:setFillColor( 0.5 )
-	-- door.isVisible = false
-	door.type = 'door'
+
 
 
 
@@ -84,7 +83,6 @@ function scene:create( event )
 sceneGroup:insert( map )
 sceneGroup:insert( hero )
 sceneGroup:insert( enemy )
-sceneGroup:insert( door )
 
 end
 -------------

@@ -55,7 +55,7 @@ function scene:create( event )
 
 	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)
 
--- Inserisco nella variabile mappa i dati inerenti alla mappa .json
+	-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
 	local filename = 'scene/maps/lvl1/livello1.json'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, "scene/maps/lvl1")
@@ -99,17 +99,17 @@ local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
 	local displayLeft = -sceneGroup.x
-	local nonScroll = display.contentWidth - heroWidth
+	local nonScroll = display.contentWidth / 2
 
-	if (hero.x >= mapLimitLeft + heroWidth and hero.x <= mapLimitRight - heroWidth) then
+	if (hero.x >= mapLimitLeft + offsetX and hero.x <= mapLimitRight - nonScroll) then
 		if (hero.x > displayLeft + nonScroll) then
 			sceneGroup.x = -hero.x + nonScroll
-		elseif (hero.x < displayLeft + heroWidth) then
-			sceneGroup.x = -hero.x + heroWidth
+		elseif (hero.x < displayLeft + offsetX) then
+			sceneGroup.x = -hero.x + offsetX
 		end
 	end
+	return true
 end
-
 
 local function checkZombieDead(event)
 	if (enemy.isDead) then
@@ -120,7 +120,6 @@ end
 
 local function changeLevel(event) 
 	if (hero.isCollidingWithDoor) then
-		physics.pause()
 		composer.removeScene('scene.livello2')
 		composer.gotoScene('scene.livello2', {effect = 'fade', time = 500})
 	end
@@ -181,6 +180,7 @@ function scene:hide( event )
 
 	elseif ( phase == "did" ) then
 		--Rimozione degli ascoltatori della scena
+		physics.pause()
 		Runtime:removeEventListener('enterFrame', moveCamera)
 		Runtime:removeEventListener('enterFrame', gameOver)
 		Runtime:removeEventListener('enterFrame', checkZombieDead)

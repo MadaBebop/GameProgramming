@@ -91,37 +91,41 @@ function M.createRobot()
         local keyName = event.keyName
         local phase = event.phase
 
-        if (phase == 'down') then -- Quando un tasto viene premuto
-            if ('d' == keyName) then -- d = movimento verso destra
-                -- controllo se il personaggio è girato verso sx, se è così allora lo scalo e setto isFacing a destra
-                if (isFacing == 'left') then
-                    robot:scale(-1, 1)
-                    isFacing = 'right'
+        if (robot.isDead) then
+            return 
+        else
+            if (phase == 'down') then -- Quando un tasto viene premuto
+                if ('d' == keyName) then -- d = movimento verso destra
+                    -- controllo se il personaggio è girato verso sx, se è così allora lo scalo e setto isFacing a destra
+                    if (isFacing == 'left') then
+                        robot:scale(-1, 1)
+                        isFacing = 'right'
+                    end
+                    robot:setSequence("Run")
+                    robot:play()
+                    robot:setLinearVelocity(120, 0)
+                elseif ('a' == keyName) then
+                    -- a = movimento verso sinistra
+                    -- controllo se il personaggio è girato verso dx, se è così allora lo scalo e setto isFacing a sinistra
+                    if (isFacing == 'right') then
+                        robot:scale(-1, 1)
+                        isFacing = 'left'
+                    end
+                    robot:setSequence("Run")
+                    robot:play()
+                    robot:setLinearVelocity(-120, 0)
+                elseif ('k' == keyName) then
+                    -- k = sparo
+                    robot:shoot()
+                elseif ('space' == keyName) then
+                    robot:jumpRobot()
                 end
-                robot:setSequence("Run")
-                robot:play()
-                robot:setLinearVelocity(120, 0)
-            elseif ('a' == keyName) then
-                -- a = movimento verso sinistra
-                -- controllo se il personaggio è girato verso dx, se è così allora lo scalo e setto isFacing a sinistra
-                if (isFacing == 'right') then
-                    robot:scale(-1, 1)
-                    isFacing = 'left'
+            elseif (phase == 'up') then -- Quando il tasto viene rilasciato
+                if (not robot.isDead) then
+                    robot:setSequence("Idle")
+                    robot:play()
+                    robot:setLinearVelocity(0, 0)
                 end
-                robot:setSequence("Run")
-                robot:play()
-                robot:setLinearVelocity(-120, 0)
-            elseif ('k' == keyName) then
-                -- k = sparo
-                robot:shoot()
-            elseif ('space' == keyName) then
-                robot:jumpRobot()
-            end
-        elseif (phase == 'up') then -- Quando il tasto viene rilasciato
-            if (not robot.isDead) then
-                robot:setSequence("Idle")
-                robot:play()
-                robot:setLinearVelocity(0, 0)
             end
         end
     end

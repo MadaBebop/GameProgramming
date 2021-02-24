@@ -31,13 +31,13 @@ local function skipIntro()
 	physics.start()
 end
 
-function gameOver()
-	if (hero.isDead) then
-		composer.removeScene('scene.gameOver')
-		composer.gotoScene('scene.gameOver', {effect = 'fade', time = 500})
-	end
-end
 
+-- function gameOver()
+-- 	if (hero.isDead) then
+-- 		composer.removeScene('scene.gameOver')
+-- 		composer.gotoScene('scene.gameOver', {effect = 'fade', time = 500})
+-- 	end
+-- end
 
 
 -------------
@@ -52,15 +52,15 @@ function scene:create( event )
 
 	physics.start()
 	physics.setDrawMode("hybrid")
-	-- physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
 	physics.setGravity( 0, 32 )
 
 	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)
 
 	-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
-	local filename =  event.params.map or 'scene/maps/lvl1/livello1.json'  
+	local filename =  event.params.map or 'scene/maps/lvl1/livello1.json'
+	local pathToTile = event.params.path or 'scene/maps/lvl1'  
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
-	map = tiled.new(mapData, "scene/maps/lvl1")
+	map = tiled.new(mapData, pathToTile)
 
 
 
@@ -77,6 +77,7 @@ function scene:create( event )
 	-- Carico la porta
 	porta = door.createDoor()
 	porta.map = 'scene/maps/lvl2/livello2.json'
+	porta.path = 'scene/maps/lvl2'
 
 
 
@@ -94,9 +95,13 @@ end
 -- fine CREATE
 -------------
 
+
+
+
 ---------------
 -- CAMERA SCROLL
 ---------------
+-- Camera scrolling variabili
 
 local function moveCamera (event)
 	local offsetX = 100
@@ -147,10 +152,11 @@ function scene:show( event )
 
 		-- Ascoltatore intro
 		Runtime:addEventListener('enterFrame', moveCamera)
-		Runtime:addEventListener('enterFrame', gameOver)
-		-- restart physics è nella funzione skip intro!
+		-- Runtime:addEventListener('enterFrame', gameOver)
+		
 
 	elseif ( phase == "did" ) then
+		-- robot.attachListeners(hero)
 		intro.tap = skipIntro
 		intro:addEventListener('tap', skipIntro)
 	end
@@ -170,11 +176,11 @@ function scene:hide( event )
 	local phase = event.phase
 	if ( phase == "will" ) then
 		Runtime:removeEventListener('enterFrame', moveCamera)
-		Runtime:removeEventListener('enterFrame', gameOver)
+		-- Runtime:removeEventListener('enterFrame', gameOver)
 
 	elseif ( phase == "did" ) then
 		--Rimozione degli ascoltatori della scena
-		physics.pause()
+		
 		
 	end
 
@@ -198,10 +204,10 @@ end
 --ASCOLTATORI
 ---------
 -- Ascoltatori scene
-scene:addEventListener("create", scene)
-scene:addEventListener("show", scene)
-scene:addEventListener("hide", scene)
-scene:addEventListener("destroy", scene)
+scene:addEventListener("create")
+scene:addEventListener("show")
+scene:addEventListener("hide")
+scene:addEventListener("destroy")
 
 
 return scene --fine

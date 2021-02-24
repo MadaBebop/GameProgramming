@@ -18,6 +18,7 @@ function M.createDoor()
         if (phase == 'began') then
             if (other.type == 'robot') then 
                 print('colliding')
+                other.isDead = true
                 composer.gotoScene('scene.cutScene', {params = {map = door.map, path = door.path}})
             end
         end

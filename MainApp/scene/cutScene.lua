@@ -12,11 +12,12 @@ local scene = composer.newScene()
 function scene:show( event )
 
 	local phase = event.phase
-	local options = {params = event.params}
+	-- local options = {params = event.params}
+	local options = {params = {}}
 	if ( phase == "will" ) then
 		composer.removeScene( prevScene )
 	elseif ( phase == "did" ) then
-		composer.gotoScene(prevScene, options) -- avvio il livello 2
+		composer.gotoScene('scene.livello2', options) -- avvio il livello 2
 	end
 end
 

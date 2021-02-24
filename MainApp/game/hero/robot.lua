@@ -175,7 +175,6 @@ function M.createRobot()
         robot:setSequence('Death')
         robot:play()
         removeEventListeners()
-
     end
 
 
@@ -200,9 +199,6 @@ function M.createRobot()
         robot:removeEventListener('collision', collision)
         Runtime:removeEventListener('key', key)
     end
-
-
-
 
     Runtime:addEventListener("key", key)
     robot:addEventListener('collision', collision)

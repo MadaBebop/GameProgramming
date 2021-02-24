@@ -32,12 +32,12 @@ local function skipIntro()
 end
 
 
--- function gameOver()
--- 	if (hero.isDead) then
--- 		composer.removeScene('scene.gameOver')
--- 		composer.gotoScene('scene.gameOver', {effect = 'fade', time = 500})
--- 	end
--- end
+function gameOver()
+	if (hero.isDead) then
+		composer.removeScene('scene.gameOver')
+		composer.gotoScene('scene.gameOver', {effect = 'fade', time = 500})
+	end
+end
 
 
 -------------
@@ -152,11 +152,10 @@ function scene:show( event )
 
 		-- Ascoltatore intro
 		Runtime:addEventListener('enterFrame', moveCamera)
-		-- Runtime:addEventListener('enterFrame', gameOver)
+		Runtime:addEventListener('enterFrame', gameOver)
 		
 
 	elseif ( phase == "did" ) then
-		-- robot.attachListeners(hero)
 		intro.tap = skipIntro
 		intro:addEventListener('tap', skipIntro)
 	end
@@ -176,7 +175,7 @@ function scene:hide( event )
 	local phase = event.phase
 	if ( phase == "will" ) then
 		Runtime:removeEventListener('enterFrame', moveCamera)
-		-- Runtime:removeEventListener('enterFrame', gameOver)
+		Runtime:removeEventListener('enterFrame', gameOver)
 
 	elseif ( phase == "did" ) then
 		--Rimozione degli ascoltatori della scena

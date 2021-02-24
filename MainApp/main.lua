@@ -10,4 +10,4 @@ display.setStatusBar( display.HiddenStatusBar )
 
 
 -- Inizio con caricamento del menù
-composer.gotoScene( "scene.menu" )   --
+composer.gotoScene( "scene.menu" )   

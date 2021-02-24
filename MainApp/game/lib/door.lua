@@ -7,7 +7,6 @@ function M.createDoor()
     local door = display.newRect(20,20 , 20,20 , 20,20 , 20,20)
     physics.addBody(door, 'static', {isSensor = true})
 	door:setFillColor( 0.5 )
-	-- door.isVisible = false
 	door.type = 'door'
 
     local scene = composer.getScene(composer.getSceneName('current'))
@@ -19,7 +18,7 @@ function M.createDoor()
         if (phase == 'began') then
             if (other.type == 'robot') then 
                 print('colliding')
-                composer.gotoScene('scene.cutScene', {params = {map = door.map}})
+                composer.gotoScene('scene.cutScene', {params = {map = door.map, path = door.path}})
             end
         end
     end

@@ -25,7 +25,7 @@ local sceneGroup
 --inizio CREATE
 ---------------
 function scene:create( event )
-
+	
 	sceneGroup = self.view  -- Add scene display objects to this group
 	sceneGroup.anchorX = 0
 	sceneGroup.anchorY = 0
@@ -33,7 +33,6 @@ function scene:create( event )
 
 	physics.start()
 	physics.setDrawMode("hybrid")
-	-- physics.pause() -- metto in pausa per poter caricare tutti gli oggetti senza grandi costi di elaborazione
 	physics.setGravity( 0, 32 )
 
 
@@ -48,6 +47,7 @@ function scene:create( event )
 
 	-- Eroe
 	hero = robot.createRobot()
+	print(hero)
 
 	--caricamento nemico
 	enemy = zombie.createZombie()
@@ -56,8 +56,9 @@ function scene:create( event )
 	siringe = display.newImage('scene/maps/lvl2/siringe.png')
 	physics.addBody(siringe, 'static')
 
-	
-	
+
+
+
 	-- GRUPPI SCENE --
 	-- Insert our game items in the correct back-to-front order
 	sceneGroup:insert( map )
@@ -65,7 +66,7 @@ function scene:create( event )
 	sceneGroup:insert( enemy )
 	sceneGroup:insert( siringe )
 
-	
+
 end
 ---------------
 -- fine CREATE
@@ -97,7 +98,7 @@ end
 -- inizio SHOW
 --------------
 function scene:show( event )
-	local sceneGroup = self.view
+	sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then
@@ -112,13 +113,14 @@ function scene:show( event )
 			siringe.y = 209
 
 		--Ascoltatore scrolling
-		
 
-		-- Faccio ripartire la fisica
-		
+
+		Runtime:addEventListener('enterFrame', moveCamera)
+
 
 	elseif ( phase == "did" ) then
-		Runtime:addEventListener('enterFrame', moveCamera)
+		-- robot.attachListeners(hero)
+		
 
 	end
 
@@ -136,9 +138,9 @@ function scene:hide( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		
-	elseif ( phase == "did" ) then
 		Runtime:removeEventListener('enterFrame', moveCamera)
+	elseif ( phase == "did" ) then
+		
 	end
 
 end

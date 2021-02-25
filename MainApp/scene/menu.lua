@@ -26,7 +26,7 @@ local music
 -- Funzione per far partire il livello 1 alla pressione del tasto play
 local function onPlayBtnRelease()
 	composer.removeHidden() -- é necessario
-	composer.gotoScene( "scene.livello1", {params = {}})
+	composer.gotoScene( "scene.boss", {params = {}})
 end
 
 

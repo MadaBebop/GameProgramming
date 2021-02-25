@@ -19,9 +19,9 @@ end
 
 -- Funzione per tornare al menu
 local function returnToMenu()
-    -- composer.removeScene('scene.menu')
+    composer.removeScene('scene.menu')
     composer.gotoScene('scene.menu', {effect = 'fade', time = '500'})
-    
+
 end
 
 
@@ -55,7 +55,7 @@ end
 
 function scene:destroy( event )
 	local sceneGroup = self.view
-    
+
 end
 
 

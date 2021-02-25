@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="37">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="59">
  <editorsettings>
   <export target="boss.json" format="json"/>
  </editorsettings>
@@ -147,28 +147,28 @@
  <layer id="1" name="bossTiles" width="30" height="20">
   <data encoding="csv">
 65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,
-65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
-65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
-65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
-65,0,0,0,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,58,0,0,0,0,0,0,0,65,
-65,0,0,0,0,61,62,62,62,62,63,0,0,0,0,0,0,0,0,62,62,62,62,62,0,0,0,0,0,65,
-65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
-65,62,63,0,0,0,0,0,0,0,0,0,0,0,58,0,0,0,0,0,0,0,0,0,0,0,0,62,62,65,
-65,0,64,63,0,0,0,0,0,0,0,0,45,46,45,46,45,46,0,0,0,0,0,0,0,0,61,65,0,65,
-65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
-65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
-65,0,0,50,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,42,0,60,0,0,65,
-65,0,0,43,44,44,44,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,44,44,44,43,0,0,65,
-65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
-65,0,0,0,0,0,0,0,0,0,0,54,55,55,55,55,55,55,56,59,0,0,0,0,0,0,0,0,0,65,
-65,0,0,0,0,0,0,0,0,0,44,44,44,44,44,44,44,44,44,44,0,0,0,0,0,0,0,0,0,65,
-65,0,0,0,0,0,0,0,0,44,46,45,47,45,47,48,47,45,47,45,44,0,0,0,0,0,0,0,0,65,
-65,0,0,0,0,0,0,0,44,45,39,39,39,39,39,39,39,39,39,39,47,44,0,0,0,0,0,0,0,65,
-65,51,60,50,0,0,0,44,46,45,40,40,40,40,40,40,40,40,40,40,47,48,44,0,0,58,0,0,0,65,
+65,57,57,57,57,57,57,57,57,57,57,57,57,57,45,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,0,0,0,0,0,0,0,0,0,0,0,0,57,45,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,0,0,0,0,0,0,0,0,0,0,0,0,57,45,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,0,0,0,0,0,0,0,0,0,0,0,0,57,45,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,58,58,58,58,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,43,43,43,43,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,57,57,57,0,0,0,0,0,0,0,0,58,58,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,0,0,0,0,0,0,0,0,43,43,43,43,43,43,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,0,0,0,0,0,0,44,44,49,57,57,57,57,49,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,0,0,0,0,0,0,0,57,57,0,0,0,57,45,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,55,55,56,0,0,0,0,0,0,0,0,0,57,45,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,44,44,43,50,0,0,0,0,0,0,0,0,57,45,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,0,0,0,0,0,0,0,0,0,0,0,0,57,45,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,0,0,0,0,0,0,44,44,44,0,0,0,57,45,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,0,0,0,0,0,0,0,0,0,0,0,0,57,45,57,0,0,0,0,0,0,0,0,0,0,0,0,0,65,
+65,0,0,0,0,0,0,0,0,0,0,0,0,57,45,57,0,0,0,0,0,0,0,0,0,0,0,0,41,65,
+65,0,0,0,0,43,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,43,65,
+65,51,60,50,41,49,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,44,65,
 44,44,44,44,43,44,43,44,43,44,43,44,43,44,43,44,43,44,43,44,43,44,43,44,43,44,43,44,43,44
 </data>
  </layer>
- <objectgroup id="2" name="barrier">
+ <objectgroup id="2" name="barrier" visible="0">
   <properties>
    <property name="bodyType" value="static"/>
   </properties>
@@ -193,131 +193,121 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="3" name="platform">
+ <objectgroup id="3" name="platform" visible="0">
   <properties>
    <property name="bodyType" value="static"/>
   </properties>
-  <object id="3" x="80" y="169.333" width="15.6667" height="26.3333">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="4" x="48.6667" y="192.333" width="79.6667" height="15.3333">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="5" x="79.6667" y="80" width="96.3333" height="16.3333">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="6" x="13.3333" y="112" width="34.6667" height="16.3333">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="7" x="32.3333" y="127.667" width="31.3333" height="15">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="9" x="193.167" y="127.667" width="95.167" height="16.6667">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="10" x="304" y="79.6667" width="80" height="16.3333">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="12" x="432" y="111.667" width="34.3333" height="16.3333">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="13" x="416" y="127.667" width="31.6667" height="16">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="14" x="352.333" y="192" width="79.6667" height="15">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="15" x="384" y="170.333" width="15.6667" height="23.6667">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="16" x="160" y="239.333" width="159.667" height="31.6667">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="17" x="318.667" y="255.333" width="17" height="49.3333">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="18" x="335" y="270.667" width="17" height="35.3333">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="19" x="351.667" y="287.333" width="16" height="18.6667">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="20" x="144" y="255.667" width="16" height="49.3333">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="21" x="127.667" y="271.333" width="16.3333" height="34">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="22" x="112" y="287.333" width="15.6667" height="18">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="34" x="127.667" y="64.6667" width="16.3333" height="17">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
-  <object id="35" x="48" y="176" width="15.6667" height="19.6667">
-   <properties>
-    <property name="bodyType" value="static"/>
-   </properties>
-  </object>
   <object id="36" x="48" y="288" width="16.3333" height="24.6667">
    <properties>
     <property name="bodyType" value="static"/>
    </properties>
   </object>
+  <object id="38" x="63.6667" y="281.667" width="15.6667" height="26">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="39" x="79.6667" y="271.333" width="16.3333" height="38">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="40" x="112" y="223.333" width="48.6667" height="17.3333">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="41" x="15.3333" y="191.333" width="64" height="16.3333">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="42" x="112" y="144" width="38.6667" height="15.6667">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="43" x="144" y="127.667" width="16.3333" height="32">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="44" x="144.333" y="127.667" width="95.3333" height="15.6667">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="45" x="224" y="137" width="15.6667" height="134.667">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="46" x="12" y="96.6667" width="83.6667" height="14.6667">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="47" x="224" y="13.6667" width="16.3333" height="65.6667">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup id="5" name="trap">
+ <objectgroup id="5" name="trap" visible="0">
   <properties>
    <property name="bodyType" value="static"/>
   </properties>
-  <object id="29" x="400.667" y="294.667" width="16" height="11.6667">
+  <object id="48" type="trap" x="15.3333" y="16.3333" width="208" height="14.6667">
    <properties>
     <property name="bodyType" value="static"/>
    </properties>
   </object>
-  <object id="30" x="224.333" y="119" width="16" height="9.66667">
+  <object id="49" type="trap" x="208" y="12.6667" width="15.3333" height="66.6667">
    <properties>
     <property name="bodyType" value="static"/>
    </properties>
   </object>
-  <object id="31" x="336.333" y="70" width="15.6667" height="11">
+  <object id="50" type="trap" x="239.333" y="128" width="17" height="143">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="51" type="trap" x="239" y="14.6667" width="16.3333" height="64.6667">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="52" type="trap" x="160" y="142.333" width="64" height="17.3333">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="53" type="trap" x="209" y="143.667" width="14.6667" height="128.333">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="54" type="trap" x="128.5" y="160.667" width="30.5" height="13.6667">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="55" type="trap" x="15" y="112.667" width="48.1667" height="14">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="56" type="trap" x="95" y="276.667" width="353.333" height="29.3333">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="57" type="trap" x="192.5" y="119.5" width="47" height="9">
+   <properties>
+    <property name="bodyType" value="static"/>
+   </properties>
+  </object>
+  <object id="58" type="trap" x="16" y="88" width="79.5" height="7">
    <properties>
     <property name="bodyType" value="static"/>
    </properties>

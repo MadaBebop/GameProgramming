@@ -16,6 +16,14 @@ local map, hero, boss
 
 -- Create a new Composer scene
 local scene = composer.newScene()
+local sceneGroup
+
+function gameOver()
+	if (hero.isDead) then
+		composer.removeScene('scene.gameOver')
+		composer.gotoScene('scene.gameOver', {effect = 'fade', time = 500})
+	end
+end
 
 ---------
 --CREATE
@@ -26,35 +34,32 @@ function scene:create( event )
 	--sounds here*
 	--end sounds
 	-- Se si contengono degli oggettifisici nella mappa bisogna caricare prima la fisica!
-	physics.setDrawMode("hybrid")
 	physics.start()
-	physics.setGravity( 0, 20 )
+	physics.setDrawMode("hybrid")
+	physics.setGravity( 0, 32 )
 
 	-- Creazione delle variabili della mappa (con annessi tiles)
-	local filename = 'scene/maps/boss/boss.json'
+	local filename = event.params.map or 'scene/maps/boss/boss.json'
+	local pathToTile = event.params.path or 'scene/maps/lvl2'-- La scena del boss utilizza gli stessi sprite del livello 2
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
-	map = tiled.new(mapData, "scene/maps/lvl2") -- La scena del boss utilizza gli stessi sprite del livello 2
+	map = tiled.new(mapData, pathToTile)
 
 	-- Eroe ---
 	hero = robot.createRobot()
-	hero.x = 300
-	hero.y = 300
-
 	-- Boss ---
 	boss = bossC.createBoss()
-	boss.x = 200
-	boss.y = 200
-
-	--Centramento della mappa
-	map.x = 0
-	map.y = 0
 
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )
+sceneGroup:insert(hero)
+sceneGroup:insert( boss )
 
+end
+---------------
+-- fine CREATE
+---------------
 
-end -- fine del creazione
-
+-- Ninete camera scroll visto che la mappa è piccola
 
 ---------
 -- SHOW
@@ -63,6 +68,18 @@ function scene:show( event )
 local sceneGroup = self.view
 	local phase = event.phase
 	if ( phase == "will" ) then
+		--Centramento della mappa
+		map.x = 0
+		map.y = 0
+		--
+		hero.x = 20
+		hero.y = 300
+		--
+		boss.x = 420
+		boss.y = 140
+
+
+		Runtime:addEventListener('enterFrame', gameOver)
 
 	elseif ( phase == "did" ) then
 		-- Avviare un rumore di cambio scena
@@ -72,32 +89,37 @@ local sceneGroup = self.view
 end --end show
 
 ---------
--- HIDE
+--Inizio HIDE
 ---------
 function scene:hide( event )
 	local sceneGroup = self.view
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		physics.stop()
+		Runtime:removeEventListener('enterFrame', gameOver)
 	elseif ( phase == "did" ) then
 
 	end
 
-end -- end hide
+end
+-------------
+--- fine HIDE
+-------------
 
----------
--- DESTROY
----------
+----------------
+--Inizio DESTROY
+----------------
 function scene:destroy( event )
   local sceneGroup = self.view
-	
-end -- end destroy
+
+end
+----------------
+--- fine DESTROY
+----------------
 
 ---------
 --ASCOLTATORI
 ---------
-
 scene:addEventListener("create")
 scene:addEventListener("show")
 scene:addEventListener("hide")

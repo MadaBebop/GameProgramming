@@ -21,10 +21,13 @@ function M.createBoss()
     boss:setSequence("Idle")
     boss:play()
     --Creazione del corpo fisico
-    physics.addBody(boss, "dynamic",{radius = 50} )
+    boss.type= "boss"
+    physics.addBody(boss, "static",{radius = 60} )
+    boss:scale(0.5,0.5)
+
 
     return boss
 end
-    
+
 
 return M

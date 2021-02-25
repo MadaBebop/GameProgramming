@@ -76,7 +76,7 @@ local sceneGroup = self.view
 		hero.y = 300
 		--
 		boss.x = 420
-		boss.y = 140
+		boss.y = 120
 
 
 		Runtime:addEventListener('enterFrame', gameOver)

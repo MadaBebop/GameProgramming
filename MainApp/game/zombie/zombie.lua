@@ -72,13 +72,17 @@ function M.createZombie()
         
         if (phase == 'began') then
             if (other.type == 'bullet') then
-                die() 
-            end 
-        elseif (phase == 'ended') then 
-            other:removeSelf()
-            other = nil
-            transition.fadeOut(event.target, {time = 1500, onComplete = removeDeadBodies})
-        end   
+                die()
+            end
+        elseif (phase == 'ended') then
+            if (other.type == 'bullet') then
+                other:removeSelf()
+                other = nil
+                transition.fadeOut(event.target, {time = 350, onComplete = removeDeadBodies})
+            end
+
+        end 
+
     end
 
     zombie:addEventListener('collision', collision)

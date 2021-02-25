@@ -36,6 +36,7 @@ function scene:show(event)
         gameOver.tap = returnToMenu
         gameOver:addEventListener('tap', returnToMenu)
         audio.play(gameOverAudio, {loop = -1, channel = 2})
+        audio.setVolume(1, {channel = 2})
     end
 end
 
@@ -46,7 +47,7 @@ function scene:hide(event)
 
     if (phase == 'will') then
         gameOver:removeEventListener('tap', returnToMenu)
-        audio.stop(gameOverAudio)
+        audio.fadeOut({channel = 2, time = 400})
     elseif (phase == 'did') then
 
     end

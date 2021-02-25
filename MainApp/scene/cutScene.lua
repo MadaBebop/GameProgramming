@@ -17,7 +17,11 @@ function scene:show( event )
 	if ( phase == "will" ) then
 		composer.removeScene( prevScene )
 	elseif ( phase == "did" ) then
-		composer.gotoScene('scene.livello2', options) -- avvio il livello 2
+		if (prevScene == 'scene.livello1') then
+			composer.gotoScene('scene.livello2', options) -- avvio il livello 2
+		else
+			composer.gotoScene('scene.boss', options)
+		end
 	end
 end
 

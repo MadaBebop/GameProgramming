@@ -119,13 +119,9 @@ local function moveCamera (event)
 	return true
 end
 
-
-
-
 ---------------
 --- Fine CAMERA SCROLL
 ---------------
-
 
 --------------
 -- inizio SHOW
@@ -146,7 +142,7 @@ function scene:show( event )
 		intro.y = display.contentCenterY
 		-- Pos porta
 		porta.x = mapLimitRight - 50
-		porta.y = 270
+		porta.y = 260
 
 		-- Creazione ASCOLTATORI
 

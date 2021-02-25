@@ -21,7 +21,6 @@ end
 local function returnToMenu()
     composer.removeScene('scene.menu')
     composer.gotoScene('scene.menu', {effect = 'fade', time = '500'})
-
 end
 
 

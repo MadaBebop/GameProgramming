@@ -22,8 +22,27 @@ function M.createBoss()
     boss:play()
     --Creazione del corpo fisico
     boss.type= "boss"
+    boss.isDead = false
     physics.addBody(boss, "static",{radius = 60} )
     boss:scale(0.5,0.5)
+
+    function onCollision( event )
+        local phase = event.phase
+        local other = event.other
+
+        if (phase == 'began') then
+            if (other.type == 'bullet') then
+                boss.isDead = true
+            end
+        elseif(phase == 'ended') then
+            other:removeSelf()
+            other = nil
+        end
+    end
+
+    boss:addEventListener('collision', onCollision)
+
+
 
 
     return boss

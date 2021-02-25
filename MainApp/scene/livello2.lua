@@ -48,8 +48,9 @@ function scene:create( event )
 
 	-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
 	local filename = event.params.map or 'scene/maps/lvl2/livello2.json'
+	local pathToTile = event.params.path or 'scene/maps/lvl2'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
-	map = tiled.new(mapData, "scene/maps/lvl2")
+	map = tiled.new(mapData, pathToTile)
 
 	--Posizionamento della mappa
 	map.anchorX = 0
@@ -57,7 +58,6 @@ function scene:create( event )
 
 	-- Eroe
 	hero = robot.createRobot()
-	print(hero.isDead)
 
 	--caricamento nemico
 	enemy = zombie.createZombie()
@@ -68,7 +68,8 @@ function scene:create( event )
 
 	-- Porta
 	porta = door.createDoor()
-
+	porta.map = 'scene/maps/boss/boss.json'
+	porta.path = 'scene/maps/lvl2'
 
 
 

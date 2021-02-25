@@ -16,9 +16,9 @@ function M.createDoor()
         local other = event.other
 
         if (phase == 'began') then
-            if (other.type == 'robot') then 
-                print('colliding')
+            if (other.type == 'robot') then
                 other.isDead = true
+                composer.removeScene('scene.cutScene')
                 composer.gotoScene('scene.cutScene', {params = {map = door.map, path = door.path}})
             end
         end

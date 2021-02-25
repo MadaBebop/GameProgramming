@@ -4,7 +4,7 @@ local composer = require 'composer'
 
 function M.createDoor()
 
-    local door = display.newRect(20,20 , 20,20 , 20,20 , 20,20)
+    local door = display.newRect(0,0,16,32)
     physics.addBody(door, 'static', {isSensor = true})
 	door:setFillColor( 0.5 )
 	door.type = 'door'

@@ -26,6 +26,13 @@ function M.createBoss()
     physics.addBody(boss, "static",{radius = 60} )
     boss:scale(0.5,0.5)
 
+    -- Funzione per la rimozione del boss una volta morto
+    local function removeBoss()
+        boss:removeSelf()
+        boss = nil
+    end
+
+    -- Funzione di collisione per il boss
     function onCollision( event )
         local phase = event.phase
         local other = event.other
@@ -33,17 +40,16 @@ function M.createBoss()
         if (phase == 'began') then
             if (other.type == 'bullet') then
                 boss.isDead = true
+                transition.blink(boss, {time = 800})
             end
         elseif(phase == 'ended') then
             other:removeSelf()
             other = nil
+            timer.performWithDelay(2500, removeBoss)
         end
     end
 
     boss:addEventListener('collision', onCollision)
-
-
-
 
     return boss
 end

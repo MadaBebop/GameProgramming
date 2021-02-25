@@ -3,16 +3,16 @@ local composer = require 'composer'
 local scene = composer.newScene()
 
 -- VARIABILI
-local gameOver
-local gameOverAudio
+local victory
+local victoryAudio
 
 
 
 function scene:create(event)
     local sceneGroup = self.view
 
-    gameOver = display.newImageRect(sceneGroup, 'scene/img/gameover.png', 480, 320)
-    gameOverAudio = audio.loadSound('music/gameoverSound.mp3')
+    victory = display.newImageRect(sceneGroup, 'scene/img/victory.png', 480, 320)
+    victoryAudio = audio.loadSound('music/victorySound.mp3')
 
 end
 
@@ -20,8 +20,8 @@ end
 -- Funzione per tornare al menu
 local function returnToMenu()
     composer.removeScene('scene.menu')
-    composer.gotoScene('scene.menu', {effect = 'fade', time = '500'})
-
+    composer.gotoScene('scene.menu', {effect = 'fade', time = 500})
+    
 end
 
 
@@ -30,12 +30,12 @@ function scene:show(event)
     local phase = event.phase
 
     if (phase == 'will') then
-        gameOver.x = display.contentCenterX
-        gameOver.y = display.contentCenterY
+        victory.x = display.contentCenterX
+        victory.y = display.contentCenterY
     elseif (phase == 'did') then
-        gameOver.tap = returnToMenu
-        gameOver:addEventListener('tap', returnToMenu)
-        audio.play(gameOverAudio, {loop = -1, channel = 2})
+        victory.tap = returnToMenu
+        victory:addEventListener('tap', returnToMenu)
+        audio.play(victoryAudio, {loop = -1, channel = 2})
     end
 end
 
@@ -45,8 +45,8 @@ function scene:hide(event)
     local phase = event.phase
 
     if (phase == 'will') then
-        gameOver:removeEventListener('tap', returnToMenu)
-        audio.stop(gameOverAudio)
+        victory:removeEventListener('tap', returnToMenu)
+        audio.pause(victoryAudio)
     elseif (phase == 'did') then
 
     end
@@ -55,7 +55,7 @@ end
 
 function scene:destroy( event )
 	local sceneGroup = self.view
-
+    
 end
 
 

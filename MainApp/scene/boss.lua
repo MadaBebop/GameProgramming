@@ -18,6 +18,14 @@ local map, hero, boss
 local scene = composer.newScene()
 local sceneGroup
 
+function winGame()
+	if (boss.isDead) then
+		composer.removeScene('scene.victory')
+		composer.gotoScene('scene.victory', {effect = 'fade', time = 500})
+	end
+end
+
+
 function gameOver()
 	if (hero.isDead) then
 		composer.removeScene('scene.gameOver')

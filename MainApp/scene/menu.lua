@@ -26,7 +26,7 @@ local music
 -- Funzione per far partire il livello 1 alla pressione del tasto play
 local function onPlayBtnRelease()
 	composer.removeHidden() -- é necessario
-	composer.gotoScene( "scene.boss", {params = {}})
+	composer.gotoScene( "scene.livello1", {params = {}})
 end
 
 
@@ -62,8 +62,8 @@ function scene:create( event )
 	-----
 	slider = widget.newSlider( -- definizione delle caratteristiche dello slider
     {
-        x = display.contentWidth - 30, -- posizionamento
-        y = 120,
+        x = display.contentWidth - 40, -- posizionamento
+        y = 100,
 				orientation = "vertical",
         height = 100,
         value = 50,  -- Start slider at 50% (optional)
@@ -73,7 +73,7 @@ function scene:create( event )
 
 	--Inserimento della musica e avvio
 	music = audio.loadStream("music/WBA Free Track.mp3")
-	audio.setVolume(0.5) -- volume std al 50%
+	audio.setVolume(0.5, {channel = 1}) -- volume std al 50%
 
 
 	-- Inserimento GRUPPI delle scene
@@ -99,7 +99,7 @@ function scene:show( event )
 		playBtn.x = display.contentCenterX
 		playBtn.y = display.contentHeight - 125
 	elseif phase == "did" then
-		audio.play(music,{loops=-1}) -- avvio
+		audio.play(music,{loops=-1, channel = 1}) -- avvio
 
 	end
 end

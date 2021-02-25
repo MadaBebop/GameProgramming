@@ -7,12 +7,13 @@ local physics = require "physics"
 local json = require "json"
 local robot = require 'game.hero.robot'
 local zombie = require 'game.zombie.zombie'
+local door = require 'game.lib.door'
 
 ----------------
 --- Variabili
 ----------------
 
-local map, hero, enemy, siringe -- variabili della mappa, eroe e siringa
+local map, hero, enemy, siringe, porta -- variabili della mappa, eroe e siringa
 -- Limiti della mappa
 local mapLimitLeft = 0
 local mapLimitRight = 960
@@ -56,14 +57,18 @@ function scene:create( event )
 
 	-- Eroe
 	hero = robot.createRobot()
-	print(hero)
+	print(hero.isDead)
 
 	--caricamento nemico
 	enemy = zombie.createZombie()
 
 	-- Siringe
 	siringe = display.newImage('scene/maps/lvl2/siringe.png')
-	physics.addBody(siringe, 'static')
+	physics.addBody(siringe, 'static', {bounce = 0.0, isSensor = true})
+
+	-- Porta
+	porta = door.createDoor()
+
 
 
 
@@ -74,6 +79,7 @@ function scene:create( event )
 	sceneGroup:insert( hero )
 	sceneGroup:insert( enemy )
 	sceneGroup:insert( siringe )
+	sceneGroup:insert( porta )
 
 
 end
@@ -120,6 +126,9 @@ function scene:show( event )
 		--Pos. Siringe
 			siringe.x = 546
 			siringe.y = 209
+		-- Pos. Porta
+			porta.x = 935
+			porta.y = 80
 
 		--Ascoltatore scrolling
 
@@ -129,9 +138,7 @@ function scene:show( event )
 
 
 	elseif ( phase == "did" ) then
-		-- robot.attachListeners(hero)
 		
-
 	end
 
 

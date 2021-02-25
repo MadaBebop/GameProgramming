@@ -61,7 +61,8 @@ function scene:create( event )
 	hero = robot.createRobot()
 
 	--caricamento nemico
-	enemy = zombie.createZombie()
+	enemy1 = zombie.createZombie()
+	enemy2 = zombie.createZombie()
 
 	-- Siringe
 	siringa = syringe.createSyringe()
@@ -78,7 +79,8 @@ function scene:create( event )
 	-- Insert our game items in the correct back-to-front order
 	sceneGroup:insert( map )
 	sceneGroup:insert( hero )
-	sceneGroup:insert( enemy )
+	sceneGroup:insert( enemy1 )
+	sceneGroup:insert( enemy2 )
 	sceneGroup:insert( siringa )
 	sceneGroup:insert( porta )
 
@@ -122,8 +124,12 @@ function scene:show( event )
 			hero.x = 100
 			hero.y = 200
 		--Pos. Enemy
-			enemy.x =100
-			enemy.y =150
+			enemy1.x = 860
+			enemy1.y = 90
+
+			enemy2.x = 310
+			enemy2.y = 170
+			enemy2:scale(-1,1)
 		--Pos. Siringe
 			siringa.x = 120
 			siringa.y = 97

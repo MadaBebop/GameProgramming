@@ -20,6 +20,8 @@ local sceneGroup
 
 function winGame()
 	if (boss.isDead) then
+		audio.fadeOut({channel = 1, time = 400})
+		hero.isDead = true
 		composer.removeScene('scene.victory')
 		composer.gotoScene('scene.victory', {effect = 'fade', time = 500})
 	end
@@ -105,7 +107,7 @@ function scene:hide( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
-		
+
 		Runtime:removeEventListener('enterFrame', gameOver)
 		Runtime:removeEventListener('enterFrame', winGame)
 	elseif ( phase == "did" ) then
@@ -121,7 +123,7 @@ end
 --Inizio DESTROY
 ----------------
 function scene:destroy( event )
-  local sceneGroup = self.view
+local sceneGroup = self.view
 
 end
 ----------------

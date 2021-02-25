@@ -8,12 +8,13 @@ local json = require "json"
 local robot = require 'game.hero.robot'
 local zombie = require 'game.zombie.zombie'
 local door = require 'game.lib.door'
+local syringe = require 'game.lib.syringe'
 
 ----------------
 --- Variabili
 ----------------
 
-local map, hero, enemy, siringe, porta -- variabili della mappa, eroe e siringa
+local map, hero, enemy, siringa, porta -- variabili della mappa, eroe e siringa
 -- Limiti della mappa
 local mapLimitLeft = 0
 local mapLimitRight = 960
@@ -63,8 +64,7 @@ function scene:create( event )
 	enemy = zombie.createZombie()
 
 	-- Siringe
-	siringe = display.newImage('scene/maps/lvl2/siringe.png')
-	physics.addBody(siringe, 'static', {bounce = 0.0, isSensor = true})
+	siringa = syringe.createSyringe()
 
 	-- Porta
 	porta = door.createDoor()
@@ -79,7 +79,7 @@ function scene:create( event )
 	sceneGroup:insert( map )
 	sceneGroup:insert( hero )
 	sceneGroup:insert( enemy )
-	sceneGroup:insert( siringe )
+	sceneGroup:insert( siringa )
 	sceneGroup:insert( porta )
 
 
@@ -125,8 +125,8 @@ function scene:show( event )
 			enemy.x =100
 			enemy.y =150
 		--Pos. Siringe
-			siringe.x = 546
-			siringe.y = 209
+			siringa.x = 120
+			siringa.y = 97
 		-- Pos. Porta
 			porta.x = 935
 			porta.y = 80

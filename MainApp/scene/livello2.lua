@@ -21,6 +21,15 @@ local mapLimitRight = 960
 local scene = composer.newScene()
 local sceneGroup
 
+
+
+function gameOver()
+	if (hero.isDead) then
+		composer.removeScene('scene.gameOver')
+		composer.gotoScene('scene.gameOver', {effect = 'fade', time = 500})
+	end
+end
+
 ---------------
 --inizio CREATE
 ---------------
@@ -116,6 +125,7 @@ function scene:show( event )
 
 
 		Runtime:addEventListener('enterFrame', moveCamera)
+		Runtime:addEventListener('enterFrame', gameOver)
 
 
 	elseif ( phase == "did" ) then
@@ -139,6 +149,7 @@ function scene:hide( event )
 	local phase = event.phase
 	if ( phase == "will" ) then
 		Runtime:removeEventListener('enterFrame', moveCamera)
+		Runtime:removeEventListener('enterFrame', gameOver)
 	elseif ( phase == "did" ) then
 		
 	end

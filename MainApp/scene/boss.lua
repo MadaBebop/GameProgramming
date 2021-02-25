@@ -59,7 +59,7 @@ function scene:create( event )
 
 -- Insert our game items in the correct back-to-front order
 sceneGroup:insert( map )
-sceneGroup:insert(hero)
+sceneGroup:insert( hero )
 sceneGroup:insert( boss )
 
 end
@@ -88,6 +88,7 @@ local sceneGroup = self.view
 
 
 		Runtime:addEventListener('enterFrame', gameOver)
+		Runtime:addEventListener('enterFrame', winGame)
 
 	elseif ( phase == "did" ) then
 		-- Avviare un rumore di cambio scena
@@ -104,7 +105,9 @@ function scene:hide( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
+		
 		Runtime:removeEventListener('enterFrame', gameOver)
+		Runtime:removeEventListener('enterFrame', winGame)
 	elseif ( phase == "did" ) then
 
 	end

@@ -28,6 +28,7 @@ function M.createBoss()
 
     -- Funzione per la rimozione del boss una volta morto
     local function removeBoss()
+        boss.isDead = true
         boss:removeSelf()
         boss = nil
     end
@@ -39,14 +40,14 @@ function M.createBoss()
 
         if (phase == 'began') then
             if (other.type == 'bullet') then
-                boss.isDead = true
                 transition.blink(boss, {time = 800})
+
             end
         elseif(phase == 'ended') then
             other:removeSelf()
             other = nil
             timer.performWithDelay(2500, removeBoss)
-        end
+          end
     end
 
     boss:addEventListener('collision', onCollision)

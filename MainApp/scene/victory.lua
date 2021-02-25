@@ -13,15 +13,14 @@ function scene:create(event)
 
     victory = display.newImageRect(sceneGroup, 'scene/img/victory.png', 480, 320)
     victoryAudio = audio.loadSound('music/victorySound.mp3')
-
 end
-
+ -- end create
 
 -- Funzione per tornare al menu
 local function returnToMenu()
     composer.removeScene('scene.menu')
     composer.gotoScene('scene.menu', {effect = 'fade', time = 500})
-    
+
 end
 
 
@@ -30,12 +29,16 @@ function scene:show(event)
     local phase = event.phase
 
     if (phase == 'will') then
+
         victory.x = display.contentCenterX
         victory.y = display.contentCenterY
+
     elseif (phase == 'did') then
+
         victory.tap = returnToMenu
         victory:addEventListener('tap', returnToMenu)
         audio.play(victoryAudio, {loop = -1, channel = 2})
+
     end
 end
 
@@ -46,7 +49,8 @@ function scene:hide(event)
 
     if (phase == 'will') then
         victory:removeEventListener('tap', returnToMenu)
-        audio.pause(victoryAudio)
+        audio.fadeOut({channel = 2, time= 400})
+
     elseif (phase == 'did') then
 
     end
@@ -55,7 +59,7 @@ end
 
 function scene:destroy( event )
 	local sceneGroup = self.view
-    
+
 end
 
 

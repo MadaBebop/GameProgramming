@@ -92,7 +92,7 @@ function M.createRobot()
         local phase = event.phase
 
         if (robot.isDead) then
-            return 
+            return
         else
             if (phase == 'down') then -- Quando un tasto viene premuto
                 if ('d' == keyName) then -- d = movimento verso destra
@@ -180,9 +180,6 @@ function M.createRobot()
         robot:play()
         removeEventListeners()
     end
-
-
-
 
     function collision (event)
         local phase = event.phase

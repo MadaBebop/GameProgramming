@@ -37,7 +37,7 @@ end
 --inizio CREATE
 ---------------
 function scene:create( event )
-	
+
 	sceneGroup = self.view  -- Add scene display objects to this group
 	sceneGroup.anchorX = 0
 	sceneGroup.anchorY = 0
@@ -146,7 +146,7 @@ function scene:show( event )
 
 
 	elseif ( phase == "did" ) then
-		
+
 	end
 
 
@@ -165,8 +165,9 @@ function scene:hide( event )
 	if ( phase == "will" ) then
 		Runtime:removeEventListener('enterFrame', moveCamera)
 		Runtime:removeEventListener('enterFrame', gameOver)
-	elseif ( phase == "did" ) then
 		
+	elseif ( phase == "did" ) then
+
 	end
 
 end

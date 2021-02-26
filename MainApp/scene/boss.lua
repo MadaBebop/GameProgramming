@@ -32,6 +32,7 @@ end
 -- Funzione che controlla se l'eroe è morto, se true allora viene lanciata la scena di Game Over
 function gameOver()
 	if (hero.isDead) then
+		audio.fadeOut({channel = 1, time = 400})
 		composer.removeScene('scene.gameOver')
 		composer.gotoScene('scene.gameOver', {effect = 'fade', time = 500})
 	end

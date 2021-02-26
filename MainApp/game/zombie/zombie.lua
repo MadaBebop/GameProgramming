@@ -54,10 +54,6 @@ function M.createZombie()
     zombie.isDead = false
 
 
-    function die()
-        zombie:setSequence('Death')
-        zombie:play() 
-    end
 
     local function removeDeadBodies()
         zombie.isDead = true 
@@ -72,7 +68,8 @@ function M.createZombie()
         
         if (phase == 'began') then
             if (other.type == 'bullet') then
-                die()
+                zombie:setSequence('Death')
+                zombie:play()
             end
         elseif (phase == 'ended') then
             if (other.type == 'bullet') then

@@ -31,7 +31,7 @@ local function skipIntro()
 	physics.start()
 end
 
-
+-- Funzione che controlla se l'eroe è morto, se true allora viene lanciata la scena di Game Over
 function gameOver()
 	if (hero.isDead) then
 		audio.fadeOut({channel = 1, time = 400})
@@ -52,7 +52,7 @@ function scene:create( event )
 	sceneGroup.anchorChildren = true
 
 	physics.start()
-	physics.setDrawMode("hybrid")
+	physics.setDrawMode("normal")
 	physics.setGravity( 0, 32 )
 
 	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)
@@ -62,7 +62,6 @@ function scene:create( event )
 	local pathToTile = event.params.path or 'scene/maps/lvl1'  
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, pathToTile)
-
 
 
 	--Posizionamento della mappa
@@ -89,21 +88,17 @@ sceneGroup:insert( hero )
 sceneGroup:insert( enemy )
 sceneGroup:insert( porta )
 
-
-
 end
 -------------
 -- fine CREATE
 -------------
 
 
-
-
 ---------------
 -- CAMERA SCROLL
 ---------------
--- Camera scrolling variabili
 
+-- Funzione per il camera scroll 
 local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
@@ -120,9 +115,6 @@ local function moveCamera (event)
 	return true
 end
 
----------------
---- Fine CAMERA SCROLL
----------------
 
 --------------
 -- inizio SHOW
@@ -145,9 +137,8 @@ function scene:show( event )
 		porta.x = mapLimitRight - 50
 		porta.y = 260
 
-		-- Creazione ASCOLTATORI
 
-		-- Ascoltatore intro
+		-- Ascoltatori per il movimento di camera e il Game Over 
 		Runtime:addEventListener('enterFrame', moveCamera)
 		Runtime:addEventListener('enterFrame', gameOver)
 		
@@ -171,15 +162,14 @@ function scene:hide( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
+
+		--Rimozione degli ascoltatori della scena
 		Runtime:removeEventListener('enterFrame', moveCamera)
 		Runtime:removeEventListener('enterFrame', gameOver)
 
 	elseif ( phase == "did" ) then
-		--Rimozione degli ascoltatori della scena
-		
-		
+					
 	end
-
 end
 --------------
 --  fine HIDE

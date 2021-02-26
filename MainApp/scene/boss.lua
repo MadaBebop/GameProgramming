@@ -18,6 +18,8 @@ local map, hero, boss
 local scene = composer.newScene()
 local sceneGroup
 
+-- Funzione che controlla se il boss è morto, se true allora viene lanciata la scena di Victory
+-- N.B. la proprietà isDead dell'eroe viene settata a true per evitare input al personaggio durante il cambio di scena
 function winGame()
 	if (boss.isDead) then
 		audio.fadeOut({channel = 1, time = 400})
@@ -27,7 +29,7 @@ function winGame()
 	end
 end
 
-
+-- Funzione che controlla se l'eroe è morto, se true allora viene lanciata la scena di Game Over
 function gameOver()
 	if (hero.isDead) then
 		composer.removeScene('scene.gameOver')
@@ -40,12 +42,10 @@ end
 ---------
 function scene:create( event )
 
-	local sceneGroup = self.view  -- Add scene display objects to this group
-	--sounds here*
-	--end sounds
-	-- Se si contengono degli oggettifisici nella mappa bisogna caricare prima la fisica!
+	local sceneGroup = self.view  
+
 	physics.start()
-	physics.setDrawMode("hybrid")
+	physics.setDrawMode("normal")
 	physics.setGravity( 0, 32 )
 
 	-- Creazione delle variabili della mappa (con annessi tiles)
@@ -69,7 +69,6 @@ end
 -- fine CREATE
 ---------------
 
--- Ninete camera scroll visto che la mappa è piccola
 
 ---------
 -- SHOW
@@ -78,7 +77,7 @@ function scene:show( event )
 local sceneGroup = self.view
 	local phase = event.phase
 	if ( phase == "will" ) then
-		--Centramento della mappa
+		-- Posizionamento dei vari display objects
 		map.x = 0
 		map.y = 0
 		--
@@ -88,7 +87,7 @@ local sceneGroup = self.view
 		boss.x = 420
 		boss.y = 120
 
-
+		-- Ascoltatori
 		Runtime:addEventListener('enterFrame', gameOver)
 		Runtime:addEventListener('enterFrame', winGame)
 
@@ -108,6 +107,7 @@ function scene:hide( event )
 	local phase = event.phase
 	if ( phase == "will" ) then
 
+		-- Rimozione degli ascoltatori di scena
 		Runtime:removeEventListener('enterFrame', gameOver)
 		Runtime:removeEventListener('enterFrame', winGame)
 	elseif ( phase == "did" ) then

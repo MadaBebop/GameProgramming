@@ -44,7 +44,7 @@ function scene:create( event )
 	sceneGroup.anchorChildren = true
 
 	physics.start()
-	physics.setDrawMode("hybrid")
+	physics.setDrawMode("normal")
 	physics.setGravity( 0, 32 )
 
 
@@ -118,13 +118,13 @@ end
 --------------
 function scene:show( event )
 	sceneGroup = self.view
-
 	local phase = event.phase
+
 	if ( phase == "will" ) then
 		--Pos. Eroe
 			hero.x = 100
 			hero.y = 200
-		--Pos. Enemy
+		--Pos. Enemies
 			enemy1.x = 860
 			enemy1.y = 90
 
@@ -138,9 +138,7 @@ function scene:show( event )
 			porta.x = 935
 			porta.y = 80
 
-		--Ascoltatore scrolling
-
-
+		--Ascoltatore per lo scrolling e per il gameover
 		Runtime:addEventListener('enterFrame', moveCamera)
 		Runtime:addEventListener('enterFrame', gameOver)
 
@@ -163,6 +161,7 @@ function scene:hide( event )
 
 	local phase = event.phase
 	if ( phase == "will" ) then
+		-- Rimozione degli ascoltatori
 		Runtime:removeEventListener('enterFrame', moveCamera)
 		Runtime:removeEventListener('enterFrame', gameOver)
 		
@@ -187,15 +186,12 @@ end
 --- fine DESTROY
 ----------------
 
----------
---ASCOLTATORI
----------
+
 -- Ascoltatori scene
 scene:addEventListener("create")
 scene:addEventListener("show")
 scene:addEventListener("hide")
 scene:addEventListener("destroy")
---Ascoltatori oggetti
 
 
-return scene --fine
+return scene 

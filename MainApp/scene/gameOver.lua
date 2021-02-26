@@ -32,8 +32,10 @@ function scene:show(event)
         gameOver.x = display.contentCenterX
         gameOver.y = display.contentCenterY
     elseif (phase == 'did') then
+        -- Associamo al variabile gameOver un ascoltatore di tipo tap
         gameOver.tap = returnToMenu
         gameOver:addEventListener('tap', returnToMenu)
+        -- Audio per il Game Over
         audio.play(gameOverAudio, {loop = -1, channel = 2})
         audio.setVolume(1, {channel = 2})
     end
@@ -45,6 +47,7 @@ function scene:hide(event)
     local phase = event.phase
 
     if (phase == 'will') then
+        -- Rimozione ascoltatori e dissolvenza per l'audio
         gameOver:removeEventListener('tap', returnToMenu)
         audio.fadeOut({channel = 2, time = 400})
     elseif (phase == 'did') then

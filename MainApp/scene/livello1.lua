@@ -52,7 +52,7 @@ function scene:create( event )
 	sceneGroup.anchorChildren = true
 
 	physics.start()
-	physics.setDrawMode("normal")
+	physics.setDrawMode("hybrid")
 	physics.setGravity( 0, 32 )
 
 	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)
@@ -76,6 +76,7 @@ function scene:create( event )
 
 	-- Carico la porta
 	porta = door.createDoor()
+	physics.addBody(porta, 'static', {isSensor = true})
 	porta.map = 'scene/maps/lvl2/livello2.json'
 	porta.path = 'scene/maps/lvl2'
 

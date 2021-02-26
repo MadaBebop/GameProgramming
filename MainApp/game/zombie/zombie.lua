@@ -1,11 +1,11 @@
 local M = {}
 
 function M.createZombie()
-    -- idle sheet
+    
+    --========== CARICO TUTTE LE ANIMAZIONI DELLO ZOMBIE ===========================
     local idleData = {width = 65, height = 78, numFrames = 15, sheetContentWidth = 975, sheetContentHeight = 78}
     local idleSheet = graphics.newImageSheet("game/zombie/IdleSheet.png", idleData)
 
-    -- walk sheet
     local walkData = {width = 65, height = 78, numFrames = 10, sheetContentWidth = 650, sheetContentHeight = 78}
     local walkSheet = graphics.newImageSheet("game/zombie/walkSheet.png", walkData)
 
@@ -54,14 +54,17 @@ function M.createZombie()
     zombie.isDead = false
 
 
-
+    -- Questa funzione viene chiamata quando la collisione tra zombie e proiettile è terminata
+    -- Si occupa di rimuovere lo zombie
+    -- Per la rimozione dello zombie abbiamo preferito scrivere a parte questa funzione per far si che essa potesse
+    -- essere chiamata in secondo momento (tramite il transition.fadeOut) e lasciare che l'animazione di morte venisse eseguita correttamente
     local function removeDeadBodies()
         zombie.isDead = true 
         zombie:removeSelf()
         zombie = nil  
     end
 
-
+    -- Funzione per gestire la collisione con lo zombie
     function collision (event)
         local phase = event.phase
         local other = event.other

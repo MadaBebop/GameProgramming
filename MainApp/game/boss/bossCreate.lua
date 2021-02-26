@@ -26,7 +26,7 @@ function M.createBoss()
     physics.addBody(boss, "static",{radius = 60} )
     boss:scale(0.5,0.5)
 
-    -- Funzione per la rimozione del boss una volta morto
+    -- Funzione per la rimozione del boss una volta morto, viene richiamata dalla funzione onCollision()
     local function removeBoss()
         boss.isDead = true
         boss:removeSelf()
@@ -40,10 +40,11 @@ function M.createBoss()
 
         if (phase == 'began') then
             if (other.type == 'bullet') then
+                -- Quando il boss viene colpito lo facciamo lampeggiare
                 transition.blink(boss, {time = 800})
-
             end
         elseif(phase == 'ended') then
+            -- Qui viene eliminato l'oggetto che ha colliso con il boss
             other:removeSelf()
             other = nil
             timer.performWithDelay(2500, removeBoss)

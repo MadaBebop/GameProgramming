@@ -1,3 +1,5 @@
+-- Modulo per la siringa, si occupa della sua creazione grafica e del suo inserimento nel mondo fisico
+-- Si occupa inoltre di gestire la collisione e il conseguente raccoglimento da parte dell'eroe
 local M = {}
 
 function M.createSyringe() 

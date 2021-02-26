@@ -23,6 +23,13 @@ local mapLimitRight = 960
 local scene = composer.newScene()
 local sceneGroup
 
+-- Funzione per controllare se la siringa è stata raccolta
+-- Se true, allora viene "sbloccata" la porta per passare al prossimo livello
+function hasBeenCollected()
+	if (siringa.isPicked) then
+		physics.addBody(porta, 'static', {isSensor = true})
+	end
+end
 
 
 function gameOver()
@@ -64,6 +71,8 @@ function scene:create( event )
 	--caricamento nemico
 	enemy1 = zombie.createZombie()
 	enemy2 = zombie.createZombie()
+
+	
 
 	-- Siringe
 	siringa = syringe.createSyringe()
@@ -141,6 +150,7 @@ function scene:show( event )
 		--Ascoltatore per lo scrolling e per il gameover
 		Runtime:addEventListener('enterFrame', moveCamera)
 		Runtime:addEventListener('enterFrame', gameOver)
+		Runtime:addEventListener('enterFrame', hasBeenCollected)
 
 
 	elseif ( phase == "did" ) then
@@ -164,6 +174,7 @@ function scene:hide( event )
 		-- Rimozione degli ascoltatori
 		Runtime:removeEventListener('enterFrame', moveCamera)
 		Runtime:removeEventListener('enterFrame', gameOver)
+		Runtime:removeEventListener('enterFrame', hasBeenCollected)
 		
 	elseif ( phase == "did" ) then
 

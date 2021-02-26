@@ -37,7 +37,7 @@ function scene:show(event)
 
         victory.tap = returnToMenu
         victory:addEventListener('tap', returnToMenu)
-        audio.play(victoryAudio, {loop = -1, channel = 2})
+        audio.play(victoryAudio, {loop = -1, channel = 3})
 
     end
 end
@@ -49,7 +49,7 @@ function scene:hide(event)
 
     if (phase == 'will') then
         victory:removeEventListener('tap', returnToMenu)
-        audio.fadeOut({channel = 2, time= 400})
+        audio.fadeOut({channel = 3, time= 400})
 
     elseif (phase == 'did') then
 

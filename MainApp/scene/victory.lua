@@ -11,10 +11,12 @@ local victoryAudio
 function scene:create(event)
     local sceneGroup = self.view
 
+    -- Creazione dell'immagine di background e caricamento del suono di vittoria
     victory = display.newImageRect(sceneGroup, 'scene/img/victory.png', 480, 320)
     victoryAudio = audio.loadSound('music/victorySound.mp3')
 end
- -- end create
+
+
 
 -- Funzione per tornare al menu
 local function returnToMenu()
@@ -29,12 +31,13 @@ function scene:show(event)
     local phase = event.phase
 
     if (phase == 'will') then
-
+        -- Posizionamento del background
         victory.x = display.contentCenterX
         victory.y = display.contentCenterY
 
     elseif (phase == 'did') then
-
+        -- Assegno a victory un ascoltatore di tipo tap, cosi da poter lanciare la funzione
+        -- returnToMenu quando si tappa sul background
         victory.tap = returnToMenu
         victory:addEventListener('tap', returnToMenu)
         audio.play(victoryAudio, {loop = -1, channel = 3})
@@ -47,7 +50,8 @@ function scene:hide(event)
     local sceneGroup = self.view
     local phase = event.phase
 
-    if (phase == 'will') then
+    if (phase == 'will') then        
+        -- Rimuovo l'ascoltatore tap associato ed eseguo una dissolvenza per l'audio
         victory:removeEventListener('tap', returnToMenu)
         audio.fadeOut({channel = 3, time= 400})
 

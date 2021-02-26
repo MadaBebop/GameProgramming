@@ -162,12 +162,12 @@ function M.createRobot()
         proiettile.isFixedRotation = true
 
         if (isFacing == 'right') then
-            proiettile.x = robot.x + 25
+            proiettile.x = robot.x + (robot.width / 2)
             proiettile.y = robot.y
             proiettile:setLinearVelocity(120, 0)
         else
             proiettile:scale(-1, 1)
-            proiettile.x = robot.x - 25
+            proiettile.x = robot.x - (robot.width / 2)
             proiettile.y = robot.y
             proiettile:setLinearVelocity(-120, 0)
         end
@@ -188,7 +188,7 @@ function M.createRobot()
         if (phase == 'began') then
             if (other.type == 'zombie' or other.type == 'trap') then
                 death()
-            elseif (phase == 'ended') then -- forse si puo togliere; cancello la scena direttamente
+            elseif (phase == 'ended') then
                 robot:removeSelf()
                 robot = nil
              end

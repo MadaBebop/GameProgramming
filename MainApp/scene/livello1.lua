@@ -52,7 +52,7 @@ function scene:create( event )
 	sceneGroup.anchorChildren = true
 
 	physics.start()
-	physics.setDrawMode("hybrid")
+	physics.setDrawMode("normal")
 	physics.setGravity( 0, 32 )
 
 	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)

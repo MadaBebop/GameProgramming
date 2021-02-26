@@ -12,16 +12,16 @@ local door = require 'game.lib.door'
 ----------------
 --- Variabili
 ----------------
---Creazione della variabile contenente i dati della mappa e la mappa stessa
 local map, hero, enemy, porta  -- dichiarazione delle variabili eroe mappa
-local mapLimitLeft = 0  -- definizione dei limiti della mappa sx
-local mapLimitRight = 960 -- lim dx
+-- Limiti della mappa
+local mapLimitLeft = 0  
+local mapLimitRight = 960 
 
 local intro
 
--- creazione di una nuova scena composer
+-- Creazione di una nuova scena composer
 local scene = composer.newScene()
-local sceneGroup -- crazione variabile del group
+local sceneGroup 
 
 
 -- Funzione dello skip dell'intro
@@ -46,10 +46,7 @@ end
 -------------
 function scene:create( event )
 
-	sceneGroup = self.view  -- Add scene display objects to this group
-	sceneGroup.anchorX = 0
-	sceneGroup.anchorY = 0
-	sceneGroup.anchorChildren = true
+	sceneGroup = self.view  
 
 	physics.start()
 	physics.setDrawMode("normal")
@@ -57,14 +54,14 @@ function scene:create( event )
 
 	intro = display.newImageRect('scene/img/infoinizio.png', 480, 320)
 
-	-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
-	local filename =  event.params.map or 'scene/maps/lvl1/livello1.json'
-	local pathToTile = event.params.path or 'scene/maps/lvl1'  
+	-- Creazione della mappa grazie alla libreria Ponytiled 
+	local filename =  'scene/maps/lvl1/livello1.json'
+	local pathToTile = 'scene/maps/lvl1'  
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, pathToTile)
 
 
-	--Posizionamento della mappa
+	-- Setting dei punti di ancoraggio della mappa
 	map.anchorX = 0
 	map.anchorY = 0
 
@@ -77,27 +74,19 @@ function scene:create( event )
 	-- Carico la porta
 	porta = door.createDoor()
 	physics.addBody(porta, 'static', {isSensor = true})
-	porta.map = 'scene/maps/lvl2/livello2.json'
-	porta.path = 'scene/maps/lvl2'
 
 
-
--- GRUPPI SCENE --
--- Insert our game items in the correct back-to-front order
-sceneGroup:insert( map )
-sceneGroup:insert( hero )
-sceneGroup:insert( enemy )
-sceneGroup:insert( porta )
+	-- I vari display objects vengono inseriti del al gruppo della scena corrente
+	sceneGroup:insert( map )
+	sceneGroup:insert( hero )
+	sceneGroup:insert( enemy )
+	sceneGroup:insert( porta )
 
 end
 -------------
 -- fine CREATE
 -------------
 
-
----------------
--- CAMERA SCROLL
----------------
 
 -- Funzione per il camera scroll 
 local function moveCamera (event)

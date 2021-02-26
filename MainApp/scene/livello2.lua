@@ -13,13 +13,12 @@ local syringe = require 'game.lib.syringe'
 ----------------
 --- Variabili
 ----------------
-
 local map, hero, enemy, siringa, porta -- variabili della mappa, eroe e siringa
 -- Limiti della mappa
 local mapLimitLeft = 0
 local mapLimitRight = 960
 
--- Create a new Composer scene
+-- Creazione di una nuova scena composer
 local scene = composer.newScene()
 local sceneGroup
 
@@ -31,7 +30,7 @@ function hasBeenCollected()
 	end
 end
 
-
+-- Funzione che controlla se l'eroe è morto, se true allora viene lanciata la scena di Game Over
 function gameOver()
 	if (hero.isDead) then
 		audio.fadeOut({channel = 1, time = 400})
@@ -41,52 +40,42 @@ function gameOver()
 end
 
 ---------------
---inizio CREATE
+-- fase CREATE
 ---------------
 function scene:create( event )
 
-	sceneGroup = self.view  -- Add scene display objects to this group
-	sceneGroup.anchorX = 0
-	sceneGroup.anchorY = 0
-	sceneGroup.anchorChildren = true
+	sceneGroup = self.view  
 
 	physics.start()
 	physics.setDrawMode("normal")
 	physics.setGravity( 0, 32 )
 
 
-	-- Inserisco nella variabile mappa i dati inerenti alla mappa .json
-	local filename = event.params.map or 'scene/maps/lvl2/livello2.json'
-	local pathToTile = event.params.path or 'scene/maps/lvl2'
+	-- Creazione della mappa grazie alla libreria Ponytiled
+	local filename = 'scene/maps/lvl2/livello2.json'
+	local pathToTile = 'scene/maps/lvl2'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, pathToTile)
 
-	--Posizionamento della mappa
+	-- Setting dei punti di ancoraggio della mappa
 	map.anchorX = 0
 	map.anchorY = 0
 
-	-- Eroe
+	-- Carico il personaggio 
 	hero = robot.createRobot()
 
-	--caricamento nemico
+	--caricamento nemici
 	enemy1 = zombie.createZombie()
 	enemy2 = zombie.createZombie()
-
-	
 
 	-- Siringe
 	siringa = syringe.createSyringe()
 
 	-- Porta
 	porta = door.createDoor()
-	porta.map = 'scene/maps/boss/boss.json'
-	porta.path = 'scene/maps/lvl2'
 
 
-
-
-	-- GRUPPI SCENE --
-	-- Insert our game items in the correct back-to-front order
+	-- I vari display objects vengono inseriti del al gruppo della scena corrente
 	sceneGroup:insert( map )
 	sceneGroup:insert( hero )
 	sceneGroup:insert( enemy1 )
@@ -100,9 +89,7 @@ end
 -- fine CREATE
 ---------------
 
---------------------------------
--- CAMERA SCROLL
---------------------------------
+-- Funzione per il camera scroll 
 local function moveCamera (event)
 	local offsetX = 100
 	local heroWidth = hero.width
@@ -118,9 +105,7 @@ local function moveCamera (event)
 	end
 	return true
 end
----------------------
--- fine CAMERA SCROLL
----------------------
+
 
 ---------------
 -- inizio SHOW
@@ -130,38 +115,37 @@ function scene:show( event )
 	local phase = event.phase
 
 	if ( phase == "will" ) then
-		--Pos. Eroe
-			hero.x = 100
-			hero.y = 200
-		--Pos. Enemies
-			enemy1.x = 860
-			enemy1.y = 90
+		-- Posizionamento Eroe
+		hero.x = 100
+		hero.y = 200
+		-- Posizionamento Enemies
+		enemy1.x = 860
+		enemy1.y = 90
 
-			enemy2.x = 310
-			enemy2.y = 170
-			enemy2:scale(-1,1)
-		--Pos. Siringe
-			siringa.x = 120
-			siringa.y = 97
-		-- Pos. Porta
-			porta.x = 935
-			porta.y = 80
+		enemy2.x = 310
+		enemy2.y = 170
+		enemy2:scale(-1,1)
+		-- Posizionamento Siringe
+		siringa.x = 120
+		siringa.y = 97
+		-- Posizionamento Porta
+		porta.x = 935
+		porta.y = 80
 
-		--Ascoltatore per lo scrolling e per il gameover
+		--Ascoltatore per lo scrolling, per il gameover e per verificare che la siringa sia stata raccolta
 		Runtime:addEventListener('enterFrame', moveCamera)
 		Runtime:addEventListener('enterFrame', gameOver)
 		Runtime:addEventListener('enterFrame', hasBeenCollected)
-
 
 	elseif ( phase == "did" ) then
 
 	end
 
-
 end
 ---------
 --- fine SHOW
 --------
+
 
 ---------
 -- inizio HIDE

@@ -48,21 +48,23 @@ function scene:create( event )
 	physics.setDrawMode("normal")
 	physics.setGravity( 0, 32 )
 
-	-- Creazione delle variabili della mappa (con annessi tiles)
-	local filename = event.params.map or 'scene/maps/boss/boss.json'
-	local pathToTile = event.params.path or 'scene/maps/lvl2'-- La scena del boss utilizza gli stessi sprite del livello 2
+	-- Creazione della mappa grazie alla libreria Ponytiled 
+	local filename = 'scene/maps/boss/boss.json'
+	local pathToTile = 'scene/maps/lvl2'
 	local mapData = json.decodeFile(system.pathForFile(filename, system.ResourceDirectory))
 	map = tiled.new(mapData, pathToTile)
+	
 
-	-- Eroe ---
+	-- Carico il personaggio
 	hero = robot.createRobot()
-	-- Boss ---
+
+	-- Carico il boss
 	boss = bossC.createBoss()
 
--- Insert our game items in the correct back-to-front order
-sceneGroup:insert( map )
-sceneGroup:insert( hero )
-sceneGroup:insert( boss )
+	-- I vari display objects vengono inseriti del al gruppo della scena corrente
+	sceneGroup:insert( map )
+	sceneGroup:insert( hero )
+	sceneGroup:insert( boss )
 
 end
 ---------------
@@ -92,11 +94,15 @@ local sceneGroup = self.view
 		Runtime:addEventListener('enterFrame', winGame)
 
 	elseif ( phase == "did" ) then
-		-- Avviare un rumore di cambio scena
+		
 
 	end
 
-end --end show
+end 
+---------
+--- fine SHOW
+--------
+
 
 ---------
 --Inizio HIDE

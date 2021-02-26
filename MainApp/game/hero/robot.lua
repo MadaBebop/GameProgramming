@@ -76,9 +76,9 @@ function M.createRobot()
     local robot = display.newSprite(idleSheet, robotSequences)
     robot:setSequence("Idle")
     robot:play()
-    local rectangle = { -7,12 , 7,12 , 7,-12 ,-7,-12 } --HitBox che verrà applicata all'eroe
+    local rectangle = { -7,12 , 7,12 , 7,-12 ,-7,-12 } -- HitBox che verrà applicata all'eroe
     physics.addBody(robot, "dynamic", {bounce = 0,0 , shape = rectangle })
-    robot:scale(0.5,0.5) -- scalato l'eroe a metà
+    robot:scale(0.5,0.5) -- L'eroe viene scalato
 
     local isFacing = 'right'
     robot.isDead = false
@@ -86,7 +86,12 @@ function M.createRobot()
     robot.jumping = false
     robot.type = 'robot'
 
-
+    -- Funzione per il movimento del robot, per questo progetto nello specifico il personaggio si muoverà esclusivamente
+    -- tramite tastiera con la seguente mappatura dei tasti:
+    --     d = movimento verso destra
+    --     a = movimento verso sinistra
+    --     spacebar = salto
+    --     k = sparo
     local function key (event)
         local keyName = event.keyName
         local phase = event.phase
@@ -95,7 +100,7 @@ function M.createRobot()
             return
         else
             if (phase == 'down') then -- Quando un tasto viene premuto
-                if ('d' == keyName) then -- d = movimento verso destra
+                if ('d' == keyName) then 
                     -- controllo se il personaggio è girato verso sx, se è così allora lo scalo e setto isFacing a destra
                     if (isFacing == 'left') then
                         robot:scale(-1, 1)
@@ -105,7 +110,6 @@ function M.createRobot()
                     robot:play()
                     robot:setLinearVelocity(120, 0)
                 elseif ('a' == keyName) then
-                    -- a = movimento verso sinistra
                     -- controllo se il personaggio è girato verso dx, se è così allora lo scalo e setto isFacing a sinistra
                     if (isFacing == 'right') then
                         robot:scale(-1, 1)
@@ -115,7 +119,6 @@ function M.createRobot()
                     robot:play()
                     robot:setLinearVelocity(-120, 0)
                 elseif ('k' == keyName) then
-                    -- k = sparo
                     robot:shoot()
                 elseif ('space' == keyName) then
                     robot:jumpRobot()
@@ -130,15 +133,13 @@ function M.createRobot()
         end
     end
 
-    -- Ascoltatore del timer
+    -- Ascoltatore del timer, questa funzione in particolare è utile per far si che l'utente non possa premere ripetutamente la spacebar
+    -- così evitiamo che l'eroe esegua ripetutamente la funzione di salto, portandolo in una sorta di "volo"
     local function listener (event)
       robot.jumping = false -- dopo un secondo la fase di salto finisce, indipendentemente da altre pressione della spacebar
     end
 
-    local function spriteListener()
-        robot.jumping = false
-    end
-
+    -- Funzione dedicata al salto dell'eroe, si setta la sequenza corretta, si fa partire l'animazione e si applica un impulso lineare
     function robot:jumpRobot(event)
         if not robot.jumping then
             robot:setSequence("Jump")
@@ -150,7 +151,7 @@ function M.createRobot()
     end
 
 
-    -- Funzione per lo sparo
+    -- Funzione per lo sparo, si occupa della creazione di un oggetto "proiettile"
     function robot:shoot(event)
         robot:setSequence('Shoot')
         robot:play()
@@ -174,7 +175,7 @@ function M.createRobot()
         end
     end
 
-
+    -- Funzione per la morte dell'eroe che si occupa della parte grafica e della rimozione degli ascoltatori associati
     local function death()
         robot.isDead = true
         robot:setSequence('Death')
@@ -182,6 +183,7 @@ function M.createRobot()
         removeEventListeners()
     end
 
+    -- Funzione per la collisione, si controlla il tipo dell'oggetto colliso 
     function collision (event)
         local phase = event.phase
         local other = event.other
@@ -196,12 +198,13 @@ function M.createRobot()
         end
     end
 
-
+    -- Funzione che viene richiamata durante la morte del personaggio, rimuove gli ascoltatori ad esso associato
     function removeEventListeners()
         robot:removeEventListener('collision', collision)
         Runtime:removeEventListener('key', key)
     end
 
+    -- Ascoltatori
     Runtime:addEventListener("key", key)
     robot:addEventListener('collision', collision)
 

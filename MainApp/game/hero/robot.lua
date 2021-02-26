@@ -154,6 +154,7 @@ function M.createRobot()
     function robot:shoot(event)
         robot:setSequence('Shoot')
         robot:play()
+        
         local proiettile = display.newImage('game/hero/robotfree/pngTagliate/Bullet_000.png')
         physics.addBody(proiettile, 'dynamic')
         proiettile.gravityScale = 0
